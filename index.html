@@ -1,142 +1,186 @@
 <!DOCTYPE html>
-<html lang="es"> 
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Asignaturas IES Cinoc</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asignaturas IES Cinoc</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="main-title">Asignaturas por Semestre || Doble titulación IES</h1>
-        
-        <div class="filter">
-            <label for="filter-select">Filtrar asignaturas:</label>
-            <select id="filter-select">
-            <option value="all" selected>Todas</option>
-            <option value="electivas">Electivas</option>
-            <option value="whitout-electivas">Sin lectivas</option>
-            </select>
-        </div>
+  <div class="container">
+    <h1 class="main-title">Asignaturas por Semestre || Doble titulación IES</h1>
     
-        <div class="grid-container">
-            <div class="grid-header">Administración de Empresas</div>
-            <div class="grid-header">Materias Comunes</div>
-            <div class="grid-header">Contabilidad</div>
-
-            <!-- Semestre I -->
-            <div class="subject-semester">
-                <h3>Semestre I</h3>
-                <div class="subject-card">Electiva | 2 Créditos</div>
-            </div>
-            <div class="subject-semester common">
-                <div class="subject-card">Matemáticas | 3 Créditos</div>
-                <div class="subject-card">Principios de Economía | 3 Créditos</div>
-                <div class="subject-card">Principios de Contabilidad | 2 Créditos</div>
-                <div class="subject-card">Principios de Administración | 2 Créditos</div>
-                <div class="subject-card">Técnicas de Expresión Oral y Escrita | 2 Créditos</div>
-            </div>
-            <div class="subject-semester">
-                <h3>Semestre I</h3>
-                <div class="subject-card">Principios de investigación | 2 Créditos</div>
-            </div>
-
-            <!-- Semestre II -->
-            <div class="subject-semester">
-                <h3>Semestre II</h3>
-                <div class="subject-card">Introducción a las Ciencias Sociales | 3 Créditos</div>
-                <div class="subject-card">Economía de Empresas | 2 Créditos</div>
-                <div class="subject-card">Costos | 3 Créditos</div>
-                <div class="subject-card">Sistemas | 2 Créditos</div>
-                <div class="subject-card">Contexto Regional | 1 Crédito</div>
-            </div>
-            <div class="subject-semester common">
-                <div class="subject-card">Estadística | 3 Créditos</div>
-                <div class="subject-card">Organización de Empresas | 2 Créditos</div>
-            </div>
-            <div class="subject-semester">
-                <h3>Semestre II</h3>
-                <div class="subject-card">Costos por Órdenes de Producción | 3 Créditos</div>
-                <div class="subject-card">Contabilidad General | 2 Créditos</div>
-                <div class="subject-card">Electiva I | 2 Créditos</div>
-            </div>
-
-            <!-- Semestre III -->
-            <div class="subject-semester">
-                <h3>Semestre III</h3>
-                <div class="subject-card">Administración de la Producción | 3 Créditos</div>
-                <div class="subject-card">Fundamentos de Mercadeo | 2 Créditos</div>
-            </div>
-            <div class="subject-semester common">
-                <div class="subject-card">Matemática Financiera | 3 Créditos</div>
-                <div class="subject-card">Legislación Comercial y Laboral | 3 Créditos</div>
-                <div class="subject-card">Inglés I | 2 Créditos</div>
-            </div>
-            <div class="subject-semester">
-                <h3>Semestre III</h3>
-                <div class="subject-card">Costos por Procesos | 3 Créditos</div>
-                <div class="subject-card">Software y Contabilización de Soportes | 2 Créditos</div>
-                <div class="subject-card">Metodología de Investigación | 2 Créditos</div>
-            </div>
-
-            <!-- Semestre IV -->
-            <div class="subject-semester">
-                <h3>Semestre IV</h3>
-                <div class="subject-card">Electiva | 2 Créditos</div>
-            </div>
-            <div class="subject-semester common">
-                <div class="subject-card">Emprenderismo | 2 Créditos</div>
-                <div class="subject-card">Talento Humano | 3 Créditos</div>
-                <div class="subject-card">Inglés II | 2 Créditos</div>
-            </div>
-            <div class="subject-semester">
-                <h3>Semestre IV</h3>
-                <div class="subject-card">IVA, Retefuente e ICA | 3 Créditos</div>
-                <div class="subject-card">Contabilidad Patrimonial | 3 Créditos</div>
-            </div>
-
-            <!-- Semestre V -->
-            <div class="subject-semester">
-                <h3>Semestre V</h3>
-                <div class="subject-card">Dirección y Control | 3 Créditos</div>
-                <div class="subject-card">Emprendimiento | 2 Créditos</div>
-                <div class="subject-card">Investigación de Mercados | 2 Créditos</div>
-                <div class="subject-card">Psicología en las Organizaciones | 2 Créditos</div>
-            </div>
-            <div class="subject-semester common">
-                <div class="subject-card">Análisis Financiero | 3 Créditos</div>
-                <div class="subject-card">Inglés III | 2 Créditos</div>
-            </div>
-            <div class="subject-semester">
-                <h3>Semestre V</h3>
-                <div class="subject-card">Auditoría | 3 Créditos</div>
-                <div class="subject-card">Impuesto Renta y Complementarios | 3 Créditos</div>
-                <div class="subject-card">Ciclo Contable I | 2 Créditos</div>
-                <div class="subject-card">Electiva II | 2 Créditos</div>
-            </div>
-
-            <!-- Semestre VI -->
-            <div class="subject-semester">
-                <h3>Semestre VI</h3>
-                <div class="subject-card">Formulación y Evaluación de Proyectos | 3 Créditos</div>
-                <div class="subject-card">Enfoque Gerencial | 2 Créditos</div>
-                <div class="subject-card">Planeación Estratégica | 3 Créditos</div>
-                <div class="subject-card">Gestión Tributaria | 2 Créditos</div>
-                <div class="subject-card">Inglés IV | 2 Créditos</div>
-                <div class="subject-card">Electiva | 2 Créditos</div>
-            </div>
-            <div class="subject-semester common"></div>
-            <div class="subject-semester">
-                <h3>Semestre VI</h3>
-                <div class="subject-card">Contabilidad Pública | 3 Créditos</div>
-                <div class="subject-card">Evaluación Financiera de Proyectos | 2 Créditos</div>
-                <div class="subject-card">Procedimiento Tributario | 2 Créditos</div>
-                <div class="subject-card">Ciclo Contable II e Impuestos Territoriales | 2 Créditos</div>
-                <div class="subject-card">Electiva III | 2 Créditos</div>
-                <div class="subject-card">Inglés IV | 2 Créditos</div>
-            </div>
-        </div>
+    <div class="filter">
+      <label for="filter-select">Filtrar asignaturas:</label>
+      <select id="filter-select">
+        <option value="all" selected>Todas</option>
+        <option value="electivas">Electivas</option>
+        <option value="whitout-electivas">Sin electivas</option>
+      </select>
     </div>
-    <script src="script.js"></script>
+  
+    <div class="grid-container">
+      <div class="grid-header">Administración de Empresas</div>
+      <div class="grid-header">Materias Comunes</div>
+      <div class="grid-header">Contabilidad</div>
+      
+      <!-- Semestre I -->
+      <div class="row">
+        <!-- Columna Administración de Empresas, Semestre I -->
+        <div class="column admin">
+          <h3>Semestre I</h3>
+          <!-- Exclusivas (Admin) que no son comunes -->
+          <div class="subject-card duplicated">Principios de Administración | 4 Créditos</div>
+          <div class="subject-card">Electiva | 2 Créditos</div>
+        </div>
+        <!-- Columna Materias Comunes, Semestre I -->
+        <div class="column common">
+          <h3>Semestre I</h3>
+          <div class="subject-card">Matemáticas | 3 Créditos</div>
+          <div class="subject-card">Principios de Economía | 3 Créditos</div>
+          <div class="subject-card">Principios de Contabilidad | 4 Créditos</div>
+          <div class="subject-card">Técnicas de Expresión Oral y Escrita | 2 Créditos</div>
+        </div>
+        <!-- Columna Contabilidad, Semestre I -->
+        <div class="column contabilidad">
+          <h3>Semestre I</h3>
+          <div class="subject-card duplicated">Principios de Administración | 2 Créditos</div>
+          <div class="subject-card">Constitución Política y Ética | 2 Créditos</div>
+          <div class="subject-card">Principios de Investigación | 2 Créditos</div>
+        </div>
+      </div>
+      
+      <!-- Semestre II -->
+      <div class="row">
+        <!-- Administración Semestre II -->
+        <div class="column admin">
+          <h3>Semestre II</h3>
+          <div class="subject-card">Introducción a las Ciencias Sociales | 2 Créditos</div>
+          <div class="subject-card">Economía de Empresas | 2 Créditos</div>
+          <div class="subject-card">Costos | 3 Créditos</div>
+          <div class="subject-card">Sistemas | 3 Créditos</div>
+          <div class="subject-card">Contexto Regional | 2 Créditos</div>
+        </div>
+        <!-- Comunes Semestre II -->
+        <div class="column common">
+          <h3>Semestre II</h3>
+          <div class="subject-card">Estadística | 2 Créditos</div>
+          <div class="subject-card">Organización de Empresas | 4 Créditos</div>
+        </div>
+        <!-- Contabilidad Semestre II -->
+        <div class="column contabilidad">
+          <h3>Semestre II</h3>
+          <div class="subject-card">Costos por Órdenes de Producción | 3 Créditos</div>
+          <div class="subject-card">Contabilidad General | 6 Créditos</div>
+          <div class="subject-card">Electiva I | 2 Créditos</div>
+        </div>
+      </div>
+      
+      <!-- Semestre III -->
+      <div class="row">
+        <!-- Administración Semestre III -->
+        <div class="column admin">
+          <h3>Semestre III</h3>
+          <div class="subject-card">Administración de la Producción | 3 Créditos</div>
+          <div class="subject-card">Fundamentos de Mercadeo | 2 Créditos</div>
+          <div class="subject-card duplicated">Constitución Política y Ética | 2 Créditos</div>
+        </div>
+        <!-- Comunes Semestre III -->
+        <div class="column common">
+          <h3>Semestre III</h3>
+          <div class="subject-card">Matemática Financiera | 3 Créditos</div>
+          <div class="subject-card">Legislación Comercial y Laboral | 3 Créditos</div>
+          <div class="subject-card">Inglés I | 2 Créditos</div>
+        </div>
+        <!-- Contabilidad Semestre III -->
+        <div class="column contabilidad">
+          <h3>Semestre III</h3>
+          <div class="subject-card">Costos por Procesos | 3 Créditos</div>
+          <div class="subject-card">Emprenderismo | 2 Créditos</div>
+          <div class="subject-card">Software y Contabilización de Soportes | 3 Créditos</div>
+          <div class="subject-card">Metodología de Investigación | 2 Créditos</div>
+        </div>
+      </div>
+      
+      <!-- Semestre IV -->
+      <div class="row">
+        <!-- Administración Semestre IV -->
+        <div class="column admin">
+          <h3>Semestre IV</h3>
+          <div class="subject-card">Emprenderismo | 3 Créditos</div>
+          <div class="subject-card">Electiva | 3 Créditos</div>
+        </div>
+        <!-- Comunes Semestre IV -->
+        <div class="column common">
+          <h3>Semestre IV</h3>
+          <div class="subject-card">Talento Humano | 3 Créditos</div>
+          <div class="subject-card">Inglés II | 2 Créditos</div>
+        </div>
+        <!-- Contabilidad Semestre IV -->
+        <div class="column contabilidad">
+          <h3>Semestre IV</h3>
+          <div class="subject-card">Presupuestos Privados | 4 Créditos</div>
+          <div class="subject-card">IVA, Retefuente e ICA | 4 Créditos</div>
+          <div class="subject-card">Contabilidad Patrimonial | 2 Créditos</div>
+          <div class="subject-card">Sistemas Aplicados | 3 Créditos</div>
+        </div>
+      </div>
+      
+      <!-- Semestre V -->
+      <div class="row">
+        <!-- Administración Semestre V -->
+        <div class="column admin">
+          <h3>Semestre V</h3>
+          <div class="subject-card">Dirección y Control | 4 Créditos</div>
+          <div class="subject-card">Emprendimiento | 3 Créditos</div>
+          <div class="subject-card">Investigación de Mercados | 3 Créditos</div>
+          <div class="subject-card">Psicología en las Organizaciones | 3 Créditos</div>
+        </div>
+        <!-- Comunes Semestre V -->
+        <div class="column common">
+          <h3>Semestre V</h3>
+          <div class="subject-card">Análisis Financiero | 3 Créditos</div>
+          <div class="subject-card">Inglés III | 2 Créditos</div>
+        </div>
+        <!-- Contabilidad Semestre V -->
+        <div class="column contabilidad">
+          <h3>Semestre V</h3>
+          <div class="subject-card">Auditoría | 4 Créditos</div>
+          <div class="subject-card">Impuesto Renta y Complementarios | 4 Créditos</div>
+          <div class="subject-card">Ciclo Contable I | 3 Créditos</div>
+          <div class="subject-card">Electiva II | 2 Créditos</div>
+        </div>
+      </div>
+      
+      <!-- Semestre VI -->
+      <div class="row">
+        <!-- Administración Semestre VI -->
+        <div class="column admin">
+          <h3>Semestre VI</h3>
+          <div class="subject-card">Formulación y Evaluación de Proyectos | 4 Créditos</div>
+          <div class="subject-card">Enfoque Gerencial | 3 Créditos</div>
+          <div class="subject-card">Planeación Estratégica | 3 Créditos</div>
+          <div class="subject-card">Gestión Tributaria | 3 Créditos</div>
+          <div class="subject-card">Electiva | 2 Créditos</div>
+        </div>
+        <!-- Comunes Semestre VI -->
+        <div class="column common">
+          <h3>Semestre VI</h3>
+          <div class="subject-card">Inglés IV | 2 Créditos</div>
+        </div>
+        <!-- Contabilidad Semestre VI -->
+        <div class="column contabilidad">
+          <h3>Semestre VI</h3>
+          <div class="subject-card">Contabilidad Pública | 3 Créditos</div>
+          <div class="subject-card">Evaluación Financiera de Proyectos | 3 Créditos</div>
+          <div class="subject-card">Procedimiento Tributario | 4 Créditos</div>
+          <div class="subject-card">Ciclo Contable II e Impuestos Territoriales | 4 Créditos</div>
+          <div class="subject-card">Electiva III | 2 Créditos</div>
+        </div>
+      </div>
+      
+    </div><!-- end grid-container -->
+  </div><!-- end container -->
+  <script src="script.js"></script>
 </body>
 </html>

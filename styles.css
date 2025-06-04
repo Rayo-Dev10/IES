@@ -202,9 +202,40 @@ button:hover {
   font-weight: bold;
 }
 
+.totals-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.totals-box {
+  flex: 1;
+  border: 1px solid var(--color-principal);
+  border-radius: 0.5rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.totals-box summary {
+  background-color: var(--color-principal);
+  color: #fff;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.totals-content {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .grid-container {
     grid-template-columns: 1fr;
+  }
+  .totals-container {
+    flex-direction: column;
   }
 }
 

@@ -14,6 +14,8 @@ function toRoman(num) {
 const semesterTotalsEls = {}; // {semester: {header, admin, contabilidad, comunes}}
 let adminRawTotal = 0;
 let contRawTotal = 0;
+let adminByName = {};
+let contByName = {};
 
 function createSemesterHeader(num) {
   const header = document.createElement('div');
@@ -86,8 +88,8 @@ async function cargarMaterias() {
     const adminFiltered = {};
     const contFiltered = {};
 
-    const adminByName = {};
-    const contByName = {};
+    adminByName = {};
+    contByName = {};
     adminRawTotal = 0;
     contRawTotal = 0;
 
@@ -181,15 +183,40 @@ async function cargarMaterias() {
 
 function updateTotals() {
   const totals = {};
-  const global = {admin:0, contabilidad:0, comunes:0};
+  Object.keys(semesterTotalsEls).forEach(sem => {
+    totals[sem] = {admin: 0, contabilidad: 0, comunes: 0};
+  });
+
+  let adminPropios = 0;
+  let adminComunes = 0;
+  let contPropios = 0;
+  let contComunes = 0;
+  let comunesUnion = 0;
+
   document.querySelectorAll('.subject-card').forEach(card => {
-    if (card.dataset.homologada === 'true') return;
+    const name = card.dataset.nombre;
     const sem = card.dataset.semester;
-    if (!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0};
-    const prog = card.dataset.program;
-    const cred = Number(card.dataset.creditos);
-    totals[sem][prog] += cred;
-    global[prog] += cred;
+    if (card.dataset.homologada === 'true') return;
+
+    if (card.dataset.program === 'admin') {
+      const cred = Number(card.dataset.creditos);
+      adminPropios += cred;
+      totals[sem].admin += cred;
+    } else if (card.dataset.program === 'contabilidad') {
+      const cred = Number(card.dataset.creditos);
+      contPropios += cred;
+      totals[sem].contabilidad += cred;
+    } else if (card.dataset.program === 'comunes') {
+      const adminCred = adminByName[name] ? Number(adminByName[name].credits) : 0;
+      const contCred = contByName[name] ? Number(contByName[name].credits) : 0;
+      const unionCred = Number(card.dataset.creditos);
+      adminComunes += adminCred;
+      contComunes += contCred;
+      comunesUnion += unionCred;
+      totals[sem].admin += adminCred;
+      totals[sem].contabilidad += contCred;
+      totals[sem].comunes += unionCred;
+    }
   });
 
   for (const sem in totals) {
@@ -203,22 +230,23 @@ function updateTotals() {
     }
   }
 
-  const adminTotal = global.admin + global.comunes;
-  const contTotal = global.contabilidad + global.comunes;
-  const globalTotal = global.admin + global.contabilidad + global.comunes;
+  const adminTotal = adminPropios + adminComunes;
+  const contTotal = contPropios + contComunes;
+  const globalTotal = adminPropios + contPropios + comunesUnion;
   const ahorro = adminRawTotal + contRawTotal - globalTotal;
+
   document.getElementById('admin-total-raw').textContent = adminRawTotal;
   document.getElementById('cont-total-raw').textContent = contRawTotal;
 
-  document.getElementById('admin-propios').textContent = global.admin;
-  document.getElementById('admin-comunes').textContent = global.comunes;
+  document.getElementById('admin-propios').textContent = adminPropios;
+  document.getElementById('admin-comunes').textContent = adminComunes;
   document.getElementById('admin-total').textContent = adminTotal;
 
-  document.getElementById('cont-propios').textContent = global.contabilidad;
-  document.getElementById('cont-comunes').textContent = global.comunes;
+  document.getElementById('cont-propios').textContent = contPropios;
+  document.getElementById('cont-comunes').textContent = contComunes;
   document.getElementById('cont-total').textContent = contTotal;
 
-  document.getElementById('total-comunes').textContent = global.comunes;
+  document.getElementById('total-comunes').textContent = comunesUnion;
   document.getElementById('total-global').textContent = globalTotal;
   document.getElementById('total-ahorro').textContent = ahorro;
 }

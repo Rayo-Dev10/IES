@@ -1,6 +1,6 @@
 {
   "1": [
-    {"nombre": "Matemática", "creditos": 3, "electiva": false},
+    {"nombre": "Matemáticas", "creditos": 3, "electiva": false},
     {"nombre": "Principios de Economía", "creditos": 3, "electiva": false},
     {"nombre": "Principios de Contabilidad", "creditos": 4, "electiva": false},
     {"nombre": "Principios de Administración", "creditos": 4, "electiva": false},

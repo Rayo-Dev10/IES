@@ -29,22 +29,22 @@
       <section class="dashboard-card" id="static-box">
         <h3>Situación Global</h3>
         <div class="dashboard-content static-content">
-          <p>Administración: 45 propios + 60 comunes = 105</p>
-          <p>Contabilidad: 50 propios + 57 comunes = 107</p>
-          <p>Créditos Comunes: 60</p>
-          <p>Total Doble Titulación: 155</p>
-          <p>Ahorro por doble titulación: 57 créditos</p>
+          <div class="dashboard-row"><span class="label">Administración:</span><span>45 propios + 60 comunes = 105</span></div>
+          <div class="dashboard-row"><span class="label">Contabilidad:</span><span>50 propios + 57 comunes = 107</span></div>
+          <div class="dashboard-row"><span class="label">Créditos Comunes:</span><span>60</span></div>
+          <div class="dashboard-row"><span class="label">Total Doble Titulación:</span><span>155</span></div>
+          <div class="dashboard-row"><span class="label">Ahorro por doble titulación:</span><span>57 créditos</span></div>
         </div>
       </section>
 
       <section class="dashboard-card" id="dynamic-box">
         <h3>Tus Cálculos</h3>
         <div class="dashboard-content global-totals">
-          <p>Administración: <span id="admin-propios">0</span> propios + <span id="admin-comunes">0</span> comunes = <span id="admin-total">0</span></p>
-          <p>Contabilidad: <span id="cont-propios">0</span> propios + <span id="cont-comunes">0</span> comunes = <span id="cont-total">0</span></p>
-          <p>Créditos Comunes: <span id="total-comunes">0</span></p>
-          <p>Total Doble Titulación: <span id="total-global">0</span></p>
-          <p>Ahorro por doble titulación: <span id="total-ahorro">0</span> créditos</p>
+          <div class="dashboard-row"><span class="label">Administración:</span><span><span id="admin-propios">0</span> propios + <span id="admin-comunes">0</span> comunes = <span id="admin-total">0</span></span></div>
+          <div class="dashboard-row"><span class="label">Contabilidad:</span><span><span id="cont-propios">0</span> propios + <span id="cont-comunes">0</span> comunes = <span id="cont-total">0</span></span></div>
+          <div class="dashboard-row"><span class="label">Créditos Comunes:</span><span><span id="total-comunes">0</span></span></div>
+          <div class="dashboard-row"><span class="label">Total Doble Titulación:</span><span><span id="total-global">0</span></span></div>
+          <div class="dashboard-row"><span class="label">Ahorro por doble titulación:</span><span><span id="total-ahorro">0</span> créditos</span></div>
         </div>
       </section>
       <section class="dashboard-card" id="progress-box">
@@ -52,14 +52,14 @@
         <div class="dashboard-content progress-content">
           <h4>Administración</h4>
           <progress id="progress-admin" value="0" max="0"></progress>
-          <p>Completadas: <span id="admin-completed-count">0</span> materias (<span id="admin-completed-credits">0</span> créditos, <span id="admin-completed-percent">0</span>%)</p>
-          <p>Homologadas: <span id="admin-homologated-count">0</span> materias (<span id="admin-homologated-credits">0</span> créditos, <span id="admin-homologated-percent">0</span>%)</p>
-          <p>Avance total: <span id="admin-progress-credits">0</span> de <span id="admin-progress-total">0</span> créditos (<span id="admin-progress-text">0</span>%)</p>
+          <div class="dashboard-row"><span class="label">Completadas:</span><span><span id="admin-completed-count">0</span> materias (<span id="admin-completed-credits">0</span> créditos, <span id="admin-completed-percent">0</span>%)</span></div>
+          <div class="dashboard-row"><span class="label">Homologadas:</span><span><span id="admin-homologated-count">0</span> materias (<span id="admin-homologated-credits">0</span> créditos, <span id="admin-homologated-percent">0</span>%)</span></div>
+          <div class="dashboard-row"><span class="label">Avance total:</span><span><span id="admin-progress-credits">0</span> de <span id="admin-progress-total">0</span> créditos (<span id="admin-progress-text">0</span>%)</span></div>
           <h4>Contaduria</h4>
           <progress id="progress-cont" value="0" max="0"></progress>
-          <p>Completadas: <span id="cont-completed-count">0</span> materias (<span id="cont-completed-credits">0</span> créditos, <span id="cont-completed-percent">0</span>%)</p>
-          <p>Homologadas: <span id="cont-homologated-count">0</span> materias (<span id="cont-homologated-credits">0</span> créditos, <span id="cont-homologated-percent">0</span>%)</p>
-          <p>Avance total: <span id="cont-progress-credits">0</span> de <span id="cont-progress-total">0</span> créditos (<span id="cont-progress-text">0</span>%)</p>
+          <div class="dashboard-row"><span class="label">Completadas:</span><span><span id="cont-completed-count">0</span> materias (<span id="cont-completed-credits">0</span> créditos, <span id="cont-completed-percent">0</span>%)</span></div>
+          <div class="dashboard-row"><span class="label">Homologadas:</span><span><span id="cont-homologated-count">0</span> materias (<span id="cont-homologated-credits">0</span> créditos, <span id="cont-homologated-percent">0</span>%)</span></div>
+          <div class="dashboard-row"><span class="label">Avance total:</span><span><span id="cont-progress-credits">0</span> de <span id="cont-progress-total">0</span> créditos (<span id="cont-progress-text">0</span>%)</span></div>
         </div>
       </section>
       </div>

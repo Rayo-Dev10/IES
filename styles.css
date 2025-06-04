@@ -133,6 +133,10 @@ body {
   color: #000;
 }
 
+.subject-card sup {
+  font-size: 0.7em;
+}
+
 button {
   background-color: var(--color-secundario);
   color: #fff;

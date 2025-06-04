@@ -28,7 +28,7 @@
     {"nombre": "Emprenderismo", "creditos": 3, "electiva": false},
     {"nombre": "Talento Humano", "creditos": 3, "electiva": false},
     {"nombre": "Inglés II", "creditos": 2, "electiva": false},
-    {"nombre": "Electiva", "creditos": 3, "electiva": true},
+    {"nombre": "e-Business", "creditos": 3, "electiva": true},
     {"nombre": "Sistemas Aplicados", "creditos": 3, "electiva": false},
     {"nombre": "Presupuestos Privados", "creditos": 4, "electiva": false}
   ],
@@ -46,6 +46,6 @@
     {"nombre": "Planeación Estratégica", "creditos": 3, "electiva": false},
     {"nombre": "Gestión Tributaria", "creditos": 3, "electiva": false},
     {"nombre": "Inglés IV", "creditos": 2, "electiva": false},
-    {"nombre": "Electiva", "creditos": 2, "electiva": true}
+    {"nombre": "Economía Colombiana", "creditos": 2, "electiva": true}
   ]
 }

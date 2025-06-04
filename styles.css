@@ -32,6 +32,22 @@ body {
 
 .filter label {
   margin-right: 5px;
+  cursor: pointer;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.filter-radio {
+  display: none;
+}
+
+#filter-electivas:checked ~ .grid-container .subject-card:not(.electiva) {
+  display: none;
+}
+
+#filter-without:checked ~ .grid-container .subject-card.electiva {
+  display: none;
 }
 
 .grid-container {

@@ -11,13 +11,15 @@
     <h1 class="main-title">Asignaturas por Semestre || Doble titulación IES</h1>
     
     <div class="filter">
-      <label for="filter-select">Filtrar asignaturas:</label>
-      <select id="filter-select">
-        <option value="all" selected>Todas</option>
-        <option value="electivas">Electivas</option>
-        <option value="whitout-electivas">Sin electivas</option>
-      </select>
+      <span>Filtrar asignaturas:</span>
+      <label for="filter-all">Todas</label>
+      <label for="filter-electivas">Electivas</label>
+      <label for="filter-without">Sin electivas</label>
     </div>
+
+    <input type="radio" id="filter-all" name="filter" class="filter-radio" checked>
+    <input type="radio" id="filter-electivas" name="filter" class="filter-radio">
+    <input type="radio" id="filter-without" name="filter" class="filter-radio">
   
     <div class="grid-container">
       <div class="grid-header">Administración de Empresas</div>
@@ -32,7 +34,7 @@
           <!-- "Principios de Administración" en Admin: 4 Créditos -->
           <!-- En Contabilidad, "Principios de Administración" se ve con 2 Créditos, por lo que es duplicada pero con diferente cantidad -->
           <div class="subject-card duplicated-blue">Principios de Administración | 4 Créditos</div>
-          <div class="subject-card">Electiva | 2 Créditos</div>
+          <div class="subject-card electiva">Electiva | 2 Créditos</div>
         </div>
         <!-- Columna Materias Comunes, Semestre I -->
         <div class="column common">
@@ -75,7 +77,7 @@
           <h3>Semestre II</h3>
           <div class="subject-card">Costos por Órdenes de Producción | 3 Créditos</div>
           <div class="subject-card">Contabilidad General | 6 Créditos</div>
-          <div class="subject-card">Electiva I | 2 Créditos</div>
+          <div class="subject-card electiva">Electiva I | 2 Créditos</div>
         </div>
       </div>
       
@@ -112,7 +114,7 @@
         <div class="column admin">
           <h3>Semestre IV</h3>
           <div class="subject-card">Emprenderismo | 3 Créditos</div>
-          <div class="subject-card">Electiva | 3 Créditos</div>
+          <div class="subject-card electiva">Electiva | 3 Créditos</div>
         </div>
         <!-- Comunes Semestre IV -->
         <div class="column common">
@@ -152,7 +154,7 @@
           <div class="subject-card">Auditoría | 4 Créditos</div>
           <div class="subject-card">Impuesto Renta y Complementarios | 4 Créditos</div>
           <div class="subject-card">Ciclo Contable I | 3 Créditos</div>
-          <div class="subject-card">Electiva II | 2 Créditos</div>
+          <div class="subject-card electiva">Electiva II | 2 Créditos</div>
         </div>
       </div>
       
@@ -165,7 +167,7 @@
           <div class="subject-card">Enfoque Gerencial | 3 Créditos</div>
           <div class="subject-card">Planeación Estratégica | 3 Créditos</div>
           <div class="subject-card">Gestión Tributaria | 3 Créditos</div>
-          <div class="subject-card">Electiva | 2 Créditos</div>
+          <div class="subject-card electiva">Electiva | 2 Créditos</div>
         </div>
         <!-- Comunes Semestre VI -->
         <div class="column common">
@@ -179,12 +181,11 @@
           <div class="subject-card">Evaluación Financiera de Proyectos | 3 Créditos</div>
           <div class="subject-card">Procedimiento Tributario | 4 Créditos</div>
           <div class="subject-card">Ciclo Contable II e Impuestos Territoriales | 4 Créditos</div>
-          <div class="subject-card">Electiva III | 2 Créditos</div>
+          <div class="subject-card electiva">Electiva III | 2 Créditos</div>
         </div>
       </div>
       
     </div><!-- end grid-container -->
   </div><!-- end container -->
-  <script src="script.js"></script>
 </body>
 </html>

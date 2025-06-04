@@ -14,6 +14,8 @@ function toRoman(num) {
 const semesterTotalsEls = {}; // {semester: {header, admin, contabilidad, comunes}}
 let adminRawTotal = 0;
 let contRawTotal = 0;
+const codeMap = new Map();
+let selectedCard = null;
 
 function createSemesterHeader(num) {
   const header = document.createElement('div');
@@ -29,23 +31,24 @@ function createColumn(program, semester, subjects = [], storeMap) {
   subjects.forEach(sub => {
     const card = document.createElement('div');
     card.classList.add('subject-card', 'card');
-    if (sub.source) {
-      card.innerHTML = `${sub.nombre} | ${sub.creditos} Créditos <sup>${sub.source}</sup>`;
-    } else {
-      card.textContent = `${sub.nombre} | ${sub.creditos} Créditos`;
-    }
+    const text = sub.source ? `${sub.nombre} | ${sub.creditos} Créditos <sup>${sub.source}</sup>` : `${sub.nombre} | ${sub.creditos} Créditos`;
+    card.innerHTML = `<span class="subject-text">${text}</span><span class="lock hidden">🔒</span>`;
     if (sub.electiva) card.classList.add('electiva');
     card.dataset.program = program === 'common' ? 'comunes' : program;
     card.dataset.nombre = sub.nombre;
     card.dataset.creditos = sub.creditos;
     card.dataset.semester = semester;
     card.dataset.homologada = 'false';
+    card.dataset.code = sub.code;
+    card.dataset.prereq = sub["pre-requisite"];
+    card.dataset.completed = 'false';
     card.dataset.electiva = sub.electiva ? 'true' : 'false';
     if (storeMap) {
       storeMap[sub.nombre] = card;
     }
-    card.addEventListener('mouseenter', handleHover);
-    card.addEventListener('click', toggleHomologada);
+    card.addEventListener('click', openModal);
+    if(!codeMap.has(sub.code)) codeMap.set(sub.code, []);
+    codeMap.get(sub.code).push(card);
     col.appendChild(card);
   });
 
@@ -59,20 +62,68 @@ function createColumn(program, semester, subjects = [], storeMap) {
   return {col, totalEl};
 }
 
-function handleHover(e) {
-  const card = e.currentTarget;
-  const msg = card.dataset.homologada === 'true' ? '¿Quitar homologación?' : '¿Marcar como homologada?';
-  card.setAttribute('title', msg);
+function openModal(e) {
+  selectedCard = e.currentTarget;
+  const modal = document.getElementById('subject-modal');
+  document.getElementById('modal-title').textContent = selectedCard.dataset.nombre;
+  document.getElementById('modal-info').textContent = '';
+  modal.classList.remove('hidden');
 }
 
-function toggleHomologada(e) {
-  const card = e.currentTarget;
-  const isHomologada = card.dataset.homologada === 'true';
-  card.dataset.homologada = isHomologada ? 'false' : 'true';
-  card.classList.toggle('homologada', !isHomologada);
-  updateTotals();
+function updateLocks() {
+  document.querySelectorAll('.subject-card').forEach(card => {
+    const lock = card.querySelector('.lock');
+    const prereq = card.dataset.prereq;
+    if (!prereq || prereq === 'null') {
+      lock.classList.add('hidden');
+      return;
+    }
+    const prereqCards = codeMap.get(prereq);
+    if (!prereqCards) {
+      lock.classList.add('hidden');
+      return;
+    }
+    const satisfied = prereqCards.some(c => c.dataset.homologada === 'true' || c.dataset.completed === 'true');
+    lock.classList.toggle('hidden', satisfied);
+  });
 }
 
+function closeModal() {
+  document.getElementById('subject-modal').classList.add('hidden');
+}
+
+function setupModal() {
+  const modal = document.getElementById('subject-modal');
+  const info = document.getElementById('modal-info');
+  document.getElementById('btn-prereq').addEventListener('click', () => {
+    const code = selectedCard.dataset.prereq;
+    if (!code || code === 'null') {
+      info.textContent = 'Esta materia no tiene pre requisito';
+    } else if (!codeMap.has(code)) {
+      info.textContent = 'pre requisito desocnocido, el código de pre requisito establecido no corresponde a ninguna materia del plan de estudios';
+    } else {
+      const names = [...new Set(codeMap.get(code).map(c => c.dataset.nombre))].join(', ');
+      info.textContent = `Prerrequisito: ${code} (${names})`;
+    }
+  });
+  document.getElementById('btn-homologada').addEventListener('click', () => {
+    const val = selectedCard.dataset.homologada === 'true';
+    selectedCard.dataset.homologada = val ? 'false' : 'true';
+    selectedCard.classList.toggle('homologada', !val);
+    closeModal();
+    updateTotals();
+    updateLocks();
+  });
+  document.getElementById('btn-completada').addEventListener('click', () => {
+    const val = selectedCard.dataset.completed === 'true';
+    selectedCard.dataset.completed = val ? 'false' : 'true';
+    selectedCard.classList.toggle('completada', !val);
+    closeModal();
+    updateTotals();
+    updateLocks();
+  });
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+}
 async function cargarMaterias() {
   const container = document.querySelector('.grid-container');
 
@@ -169,6 +220,7 @@ async function cargarMaterias() {
 
     }
     updateTotals();
+    updateLocks();
   } catch (e) {
     const error = document.createElement('p');
     error.classList.add('error');
@@ -186,7 +238,7 @@ function updateTotals() {
   }
   const global = {admin:0, contabilidad:0, comunes:0};
   document.querySelectorAll('.subject-card').forEach(card => {
-    if (card.dataset.homologada === 'true') return;
+    if (card.dataset.homologada === 'true' || card.dataset.completed === 'true') return;
     const sem = card.dataset.semester;
     const prog = card.dataset.program;
     const cred = Number(card.dataset.creditos);
@@ -245,5 +297,6 @@ function setupFilter() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await cargarMaterias();
+  setupModal();
   setupFilter();
 });

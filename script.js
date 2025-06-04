@@ -181,11 +181,13 @@ async function cargarMaterias() {
 
 function updateTotals() {
   const totals = {};
+  for (const sem in semesterTotalsEls) {
+    totals[sem] = { admin: 0, contabilidad: 0, comunes: 0 };
+  }
   const global = {admin:0, contabilidad:0, comunes:0};
   document.querySelectorAll('.subject-card').forEach(card => {
     if (card.dataset.homologada === 'true') return;
     const sem = card.dataset.semester;
-    if (!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0};
     const prog = card.dataset.program;
     const cred = Number(card.dataset.creditos);
     totals[sem][prog] += cred;

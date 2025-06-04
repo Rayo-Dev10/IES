@@ -12,7 +12,7 @@ function toRoman(num) {
 }
 
 const duplicatesMap = {}; // {"sem-name": {type, adminCard, contCard, adminCredits, contCredits}}
-const semesterTotalsEls = {}; // {semester: {admin, cont, common, total}}
+const semesterTotalsEls = {}; // {semester: {header, admin, contabilidad, comunes}}
 
 function createSemesterHeader(num) {
   const header = document.createElement('div');
@@ -42,7 +42,14 @@ function createColumn(program, semester, subjects = [], storeMap) {
     col.appendChild(card);
   });
 
-  return col;
+  const totalEl = document.createElement('div');
+  totalEl.classList.add('total-card');
+  totalEl.dataset.program = program === 'common' ? 'comunes' : program;
+  totalEl.dataset.semester = semester;
+  totalEl.textContent = 'Total: 0';
+  col.appendChild(totalEl);
+
+  return {col, totalEl};
 }
 
 function handleHover(e) {
@@ -85,11 +92,22 @@ async function cargarMaterias() {
       const adminMap = {};
       const contaMap = {};
 
-      row.appendChild(createColumn('admin', i, admin[i] || [], adminMap));
-      row.appendChild(createColumn('common', i, comunes[i] || []));
-      row.appendChild(createColumn('contabilidad', i, contabilidad[i] || [], contaMap));
+      const adminCol = createColumn('admin', i, admin[i] || [], adminMap);
+      const commonCol = createColumn('common', i, comunes[i] || []);
+      const contaCol = createColumn('contabilidad', i, contabilidad[i] || [], contaMap);
+
+      row.appendChild(adminCol.col);
+      row.appendChild(commonCol.col);
+      row.appendChild(contaCol.col);
 
       container.appendChild(row);
+
+      semesterTotalsEls[i] = {
+        header,
+        admin: adminCol.totalEl,
+        comunes: commonCol.totalEl,
+        contabilidad: contaCol.totalEl
+      };
 
       // analizar duplicados para este semestre
       for (const name in adminMap) {
@@ -116,21 +134,6 @@ async function cargarMaterias() {
         }
       }
 
-      // footer para créditos por semestre
-      const footer = document.createElement('div');
-      footer.classList.add('semester-credits');
-      footer.innerHTML =
-        `<span id="s${i}-admin">0</span>`+
-        `<span id="s${i}-comunes">0</span>`+
-        `<span id="s${i}-conta">0</span>`+
-        `<span id="s${i}-total">0</span>`;
-      semesterTotalsEls[i] = {
-        admin: footer.querySelector(`#s${i}-admin`),
-        comunes: footer.querySelector(`#s${i}-comunes`),
-        contabilidad: footer.querySelector(`#s${i}-conta`),
-        total: footer.querySelector(`#s${i}-total`)
-      };
-      container.appendChild(footer);
     }
     updateTotals();
   } catch (e) {
@@ -147,9 +150,9 @@ function updateTotals() {
   const totals = {};
   const global = {admin:0, contabilidad:0, comunes:0, duplicateAdjust:0};
   document.querySelectorAll('.subject-card').forEach(card => {
-    if(card.dataset.homologada === 'true') return;
+    if (card.dataset.homologada === 'true') return;
     const sem = card.dataset.semester;
-    if(!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0, duplicateAdjust:0};
+    if (!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0, duplicateAdjust:0};
     const prog = card.dataset.program;
     const cred = Number(card.dataset.creditos);
     totals[sem][prog] += cred;
@@ -166,21 +169,30 @@ function updateTotals() {
     global.duplicateAdjust += adjust;
   }
 
-  for(const sem in totals){
+  for (const sem in totals) {
     const t = totals[sem];
     const totalSem = t.admin + t.contabilidad + t.comunes - t.duplicateAdjust;
-    if(semesterTotalsEls[sem]){
-      semesterTotalsEls[sem].admin.textContent = `Adm: ${t.admin}`;
-      semesterTotalsEls[sem].comunes.textContent = `Com: ${t.comunes}`;
-      semesterTotalsEls[sem].contabilidad.textContent = `Cont: ${t.contabilidad}`;
-      semesterTotalsEls[sem].total.textContent = `Total: ${totalSem}`;
+    if (semesterTotalsEls[sem]) {
+      semesterTotalsEls[sem].admin.textContent = `Total: ${t.admin}`;
+      semesterTotalsEls[sem].contabilidad.textContent = `Total: ${t.contabilidad}`;
+      semesterTotalsEls[sem].comunes.textContent = `Total: ${t.comunes}`;
+      semesterTotalsEls[sem].header.textContent = `Semestre ${toRoman(Number(sem))}: ${totalSem} créditos`;
     }
   }
 
+  const adminTotal = global.admin + global.comunes;
+  const contTotal = global.contabilidad + global.comunes;
   const globalTotal = global.admin + global.contabilidad + global.comunes - global.duplicateAdjust;
-  document.getElementById('total-admin').textContent = global.admin;
+
+  document.getElementById('admin-propios').textContent = global.admin;
+  document.getElementById('admin-comunes').textContent = global.comunes;
+  document.getElementById('admin-total').textContent = adminTotal;
+
+  document.getElementById('cont-propios').textContent = global.contabilidad;
+  document.getElementById('cont-comunes').textContent = global.comunes;
+  document.getElementById('cont-total').textContent = contTotal;
+
   document.getElementById('total-comunes').textContent = global.comunes;
-  document.getElementById('total-contabilidad').textContent = global.contabilidad;
   document.getElementById('total-global').textContent = globalTotal;
 }
 

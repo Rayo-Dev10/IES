@@ -180,14 +180,16 @@ button:hover {
   font-weight: bold;
 }
 
-.semester-credits {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
+
+.total-card {
+  margin-top: 0.5rem;
+  background-color: var(--color-principal);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  text-align: center;
   font-weight: bold;
 }
-.semester-credits span { margin-right: 1rem; }
 
 .global-totals {
   text-align: center;

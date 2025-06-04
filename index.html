@@ -25,8 +25,8 @@
       <p class="program-raw">Administración: <span id="admin-total-raw">0</span> créditos | Contabilidad: <span id="cont-total-raw">0</span> créditos</p>
     </div>
 
-    <div class="totals-container">
-      <details class="totals-box" id="static-box" open>
+      <div class="totals-container">
+      <details class="totals-box" id="static-box">
         <summary>Situación Global</summary>
         <div class="totals-content static-content">
           <p>Administración: 45 propios + 60 comunes = 105</p>
@@ -37,7 +37,7 @@
         </div>
       </details>
 
-      <details class="totals-box" id="dynamic-box" open>
+      <details class="totals-box" id="dynamic-box">
         <summary>Tus Cálculos</summary>
         <div class="totals-content global-totals">
           <p>Administración: <span id="admin-propios">0</span> propios + <span id="admin-comunes">0</span> comunes = <span id="admin-total">0</span></p>
@@ -47,12 +47,28 @@
           <p>Ahorro por doble titulación: <span id="total-ahorro">0</span> créditos</p>
         </div>
       </details>
-    </div>
-  
-    <div class="grid-container">
-      <div class="grid-header">Administración de Empresas</div>
-      <div class="grid-header">Materias Comunes</div>
-      <div class="grid-header">Contabilidad</div>
+      <details class="totals-box" id="progress-box">
+        <summary>Progreso</summary>
+        <div class="totals-content progress-content">
+          <h4>Administración</h4>
+          <progress id="progress-admin" value="0" max="0"></progress>
+          <p>Completadas: <span id="admin-completed-count">0</span> (<span id="admin-completed-percent">0</span>%)</p>
+          <p>Homologadas: <span id="admin-homologated-count">0</span> (<span id="admin-homologated-percent">0</span>%)</p>
+          <p>Avance total: <span id="admin-progress-text">0</span>%</p>
+          <h4>Contaduria</h4>
+          <progress id="progress-cont" value="0" max="0"></progress>
+          <p>Completadas: <span id="cont-completed-count">0</span> (<span id="cont-completed-percent">0</span>%)</p>
+          <p>Homologadas: <span id="cont-homologated-count">0</span> (<span id="cont-homologated-percent">0</span>%)</p>
+          <p>Avance total: <span id="cont-progress-text">0</span>%</p>
+        </div>
+      </details>
+      </div>
+
+      <div class="grid-container">
+      <div class="grid-title">MATERIAS</div>
+      <div class="grid-header">Administración</div>
+      <div class="grid-header">En Común</div>
+      <div class="grid-header">Contaduria</div>
 
     </div><!-- end grid-container -->
     <div id="subject-modal" class="modal hidden">

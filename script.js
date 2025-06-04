@@ -14,6 +14,8 @@ function toRoman(num) {
 const semesterTotalsEls = {}; // {semester: {header, admin, contabilidad, comunes}}
 let adminRawTotal = 0;
 let contRawTotal = 0;
+let adminProgramTotal = 0;
+let contProgramTotal = 0;
 const codeMap = new Map();
 let selectedCard = null;
 
@@ -127,6 +129,10 @@ function setupModal() {
   document.getElementById('btn-homologada').addEventListener('click', () => {
     const val = selectedCard.dataset.homologada === 'true';
     selectedCard.dataset.homologada = val ? 'false' : 'true';
+    if (!val) {
+      selectedCard.dataset.completed = 'false';
+      selectedCard.classList.remove('completada');
+    }
     selectedCard.classList.toggle('homologada', !val);
     closeModal();
     updateTotals();
@@ -135,6 +141,10 @@ function setupModal() {
   document.getElementById('btn-completada').addEventListener('click', () => {
     const val = selectedCard.dataset.completed === 'true';
     selectedCard.dataset.completed = val ? 'false' : 'true';
+    if (!val) {
+      selectedCard.dataset.homologada = 'false';
+      selectedCard.classList.remove('homologada');
+    }
     selectedCard.classList.toggle('completada', !val);
     closeModal();
     updateTotals();
@@ -207,6 +217,12 @@ async function cargarMaterias() {
       const rm = removeCont[sem];
       contFiltered[sem] = rm ? list.filter(s => !rm.has(s.nombre)) : list.slice();
     }
+
+    const sumCredits = obj => Object.values(obj).flat().reduce((a, b) => a + Number(b.creditos), 0);
+    adminProgramTotal = sumCredits(adminFiltered) + sumCredits(commons);
+    contProgramTotal = sumCredits(contFiltered) + sumCredits(commons);
+    document.getElementById('progress-admin').max = adminProgramTotal;
+    document.getElementById('progress-cont').max = contProgramTotal;
 
     const maxSemester = Math.max(
       ...Object.keys(adminFiltered).map(Number),
@@ -298,6 +314,51 @@ function updateTotals() {
   document.getElementById('total-comunes').textContent = global.comunes;
   document.getElementById('total-global').textContent = globalTotal;
   document.getElementById('total-ahorro').textContent = ahorro;
+
+  updateProgress();
+}
+
+function updateProgress() {
+  let adminCompCred = 0, adminHomCred = 0, adminCompCount = 0, adminHomCount = 0;
+  let contCompCred = 0, contHomCred = 0, contCompCount = 0, contHomCount = 0;
+  document.querySelectorAll('.subject-card').forEach(card => {
+    const cred = Number(card.dataset.creditos);
+    const isComp = card.dataset.completed === 'true';
+    const isHom = card.dataset.homologada === 'true';
+    if (!isComp && !isHom) return;
+    if (card.dataset.program === 'admin' || card.dataset.program === 'comunes') {
+      if (isComp) { adminCompCred += cred; adminCompCount++; }
+      if (isHom) { adminHomCred += cred; adminHomCount++; }
+    }
+    if (card.dataset.program === 'contabilidad' || card.dataset.program === 'comunes') {
+      if (isComp) { contCompCred += cred; contCompCount++; }
+      if (isHom) { contHomCred += cred; contHomCount++; }
+    }
+  });
+
+  const adminTotal = adminCompCred + adminHomCred;
+  const contTotal = contCompCred + contHomCred;
+  const adminPerc = adminProgramTotal ? (adminTotal / adminProgramTotal * 100) : 0;
+  const contPerc = contProgramTotal ? (contTotal / contProgramTotal * 100) : 0;
+
+  document.getElementById('progress-admin').value = adminTotal;
+  document.getElementById('progress-cont').value = contTotal;
+  document.getElementById('admin-progress-text').textContent = adminPerc.toFixed(1);
+  document.getElementById('cont-progress-text').textContent = contPerc.toFixed(1);
+
+  document.getElementById('admin-completed-count').textContent = adminCompCount;
+  document.getElementById('admin-completed-percent').textContent =
+    adminProgramTotal ? (adminCompCred / adminProgramTotal * 100).toFixed(1) : 0;
+  document.getElementById('admin-homologated-count').textContent = adminHomCount;
+  document.getElementById('admin-homologated-percent').textContent =
+    adminProgramTotal ? (adminHomCred / adminProgramTotal * 100).toFixed(1) : 0;
+
+  document.getElementById('cont-completed-count').textContent = contCompCount;
+  document.getElementById('cont-completed-percent').textContent =
+    contProgramTotal ? (contCompCred / contProgramTotal * 100).toFixed(1) : 0;
+  document.getElementById('cont-homologated-count').textContent = contHomCount;
+  document.getElementById('cont-homologated-percent').textContent =
+    contProgramTotal ? (contHomCred / contProgramTotal * 100).toFixed(1) : 0;
 }
 
 function setupFilter() {
@@ -324,4 +385,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   await cargarMaterias();
   setupModal();
   setupFilter();
+  updateProgress();
 });

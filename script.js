@@ -39,16 +39,20 @@ function createColumn(program, semester, subjects = [], storeMap) {
     card.dataset.creditos = sub.creditos;
     card.dataset.semester = semester;
     card.dataset.homologada = 'false';
-    card.dataset.code = sub.code;
-    card.dataset.prereq = sub["pre-requisite"];
+    card.dataset.code = sub.code || '';
+    const prereqValue = sub["pre-requisite"];
+    card.dataset.prereq =
+      prereqValue === undefined || prereqValue === null ? 'null' : prereqValue;
     card.dataset.completed = 'false';
     card.dataset.electiva = sub.electiva ? 'true' : 'false';
     if (storeMap) {
       storeMap[sub.nombre] = card;
     }
     card.addEventListener('click', openModal);
-    if(!codeMap.has(sub.code)) codeMap.set(sub.code, []);
-    codeMap.get(sub.code).push(card);
+    if (sub.code) {
+      if (!codeMap.has(sub.code)) codeMap.set(sub.code, []);
+      codeMap.get(sub.code).push(card);
+    }
     col.appendChild(card);
   });
 
@@ -68,7 +72,7 @@ function openModal(e) {
   document.getElementById('modal-title').textContent = selectedCard.dataset.nombre;
   document.getElementById('modal-info').textContent = '';
   const prereqBtn = document.getElementById('btn-prereq');
-  if (!selectedCard.dataset.prereq || selectedCard.dataset.prereq === 'null') {
+  if (selectedCard.dataset.prereq === 'null') {
     prereqBtn.classList.add('hidden');
   } else {
     prereqBtn.classList.remove('hidden');
@@ -88,7 +92,7 @@ function updateLocks() {
   document.querySelectorAll('.subject-card').forEach(card => {
     const lock = card.querySelector('.lock');
     const prereq = card.dataset.prereq;
-    if (!prereq || prereq === 'null') {
+    if (prereq === 'null') {
       lock.classList.add('hidden');
       return;
     }
@@ -111,7 +115,7 @@ function setupModal() {
   const info = document.getElementById('modal-info');
   document.getElementById('btn-prereq').addEventListener('click', () => {
     const code = selectedCard.dataset.prereq;
-    if (!code || code === 'null') {
+    if (code === 'null') {
       info.textContent = 'Esta materia no tiene pre requisito';
     } else if (!codeMap.has(code)) {
       info.textContent = 'pre requisito desocnocido, el código de pre requisito establecido no corresponde a ninguna materia del plan de estudios';
@@ -159,13 +163,13 @@ async function cargarMaterias() {
     for (const [sem, list] of Object.entries(adminRaw)) {
       list.forEach(sub => {
         adminRawTotal += Number(sub.creditos);
-        adminByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem), electiva: sub.electiva};
+        adminByName[sub.nombre] = { ...sub, semester: Number(sem) };
       });
     }
     for (const [sem, list] of Object.entries(contRaw)) {
       list.forEach(sub => {
         contRawTotal += Number(sub.creditos);
-        contByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem), electiva: sub.electiva};
+        contByName[sub.nombre] = { ...sub, semester: Number(sem) };
       });
     }
 
@@ -176,11 +180,18 @@ async function cargarMaterias() {
       if (contByName[name]) {
         const a = adminByName[name];
         const c = contByName[name];
-        const useAdmin = a.credits >= c.credits;
+        const useAdmin = a.creditos >= c.creditos;
         const chosen = useAdmin ? a : c;
         const prog = useAdmin ? 'Administración' : 'Contabilidad';
         if (!commons[chosen.semester]) commons[chosen.semester] = [];
-        commons[chosen.semester].push({nombre: name, creditos: chosen.credits, source: a.credits === c.credits ? null : prog, electiva: chosen.electiva});
+        commons[chosen.semester].push({
+          nombre: name,
+          creditos: chosen.creditos,
+          electiva: chosen.electiva,
+          code: chosen.code,
+          "pre-requisite": chosen["pre-requisite"] ?? null,
+          source: a.creditos === c.creditos ? null : prog
+        });
         removeAdmin[a.semester] = removeAdmin[a.semester] || new Set();
         removeAdmin[a.semester].add(name);
         removeCont[c.semester] = removeCont[c.semester] || new Set();

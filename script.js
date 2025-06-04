@@ -12,14 +12,6 @@ function toRoman(num) {
   return result;
 }
 
-function groupBySemester(data) {
-  return data.reduce((acc, item) => {
-    const sem = item.semestre;
-    acc[sem] = acc[sem] || [];
-    acc[sem].push(item);
-    return acc;
-  }, {});
-}
 
 function createColumn(type, semester, subjects = []) {
   const col = document.createElement('div');
@@ -47,25 +39,21 @@ async function cargarMaterias() {
     fetch('contaduria.json').then(r => r.json())
   ]);
 
-  const adminBy = groupBySemester(admin);
-  const comunesBy = groupBySemester(comunes);
-  const contBy = groupBySemester(contabilidad);
-
   const maxSemester = Math.max(
-    ...Object.keys(adminBy).map(Number),
-    ...Object.keys(comunesBy).map(Number),
-    ...Object.keys(contBy).map(Number)
+    ...Object.keys(admin).map(Number),
+    ...Object.keys(comunes).map(Number),
+    ...Object.keys(contabilidad).map(Number)
   );
 
-  const container = document.getElementById('rows-container');
+  const container = document.querySelector('.grid-container');
 
   for (let i = 1; i <= maxSemester; i++) {
     const row = document.createElement('div');
     row.classList.add('row');
 
-    row.appendChild(createColumn('admin', i, adminBy[i]));
-    row.appendChild(createColumn('common', i, comunesBy[i]));
-    row.appendChild(createColumn('contabilidad', i, contBy[i]));
+    row.appendChild(createColumn('admin', i, admin[i]));
+    row.appendChild(createColumn('common', i, comunes[i]));
+    row.appendChild(createColumn('contabilidad', i, contabilidad[i]));
 
     container.appendChild(row);
   }

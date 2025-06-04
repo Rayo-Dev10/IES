@@ -268,6 +268,7 @@ button:hover {
   padding: 0.5rem;
   cursor: pointer;
   font-weight: bold;
+  text-align: left;
 }
 
 .totals-content {

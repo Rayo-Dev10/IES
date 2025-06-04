@@ -62,6 +62,12 @@ body {
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.program-raw {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
 .toggle-container label:hover {
   background-color: var(--color-acento);
   transform: scale(1.05);
@@ -122,15 +128,10 @@ body {
   border-left: 0.25rem solid var(--color-principal);
 }
 
-/* Duplicados entre los dos programas */
-.duplicate-exact {
-  background-color: #2ecc71; /* verde esmeralda */
-  color: #fff;
-}
 
-.duplicate-name {
-  background-color: #f1c40f; /* amarillo suave */
-  color: #000;
+/* Materias marcadas como electivas */
+.electiva {
+  background-color: #fff8c4; /* amarillo pastel */
 }
 
 .subject-card sup {

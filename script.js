@@ -33,29 +33,38 @@ function createColumn(type, semester, subjects = []) {
 }
 
 async function cargarMaterias() {
-  const [admin, comunes, contabilidad] = await Promise.all([
-    fetch('administracion.json').then(r => r.json()),
-    fetch('comunes.json').then(r => r.json()),
-    fetch('contaduria.json').then(r => r.json())
-  ]);
-
-  const maxSemester = Math.max(
-    ...Object.keys(admin).map(Number),
-    ...Object.keys(comunes).map(Number),
-    ...Object.keys(contabilidad).map(Number)
-  );
-
   const container = document.querySelector('.grid-container');
 
-  for (let i = 1; i <= maxSemester; i++) {
-    const row = document.createElement('div');
-    row.classList.add('row');
+  try {
+    const [admin, comunes, contabilidad] = await Promise.all([
+      fetch('administracion.json').then(r => r.json()),
+      fetch('comunes.json').then(r => r.json()),
+      fetch('contaduria.json').then(r => r.json())
+    ]);
 
-    row.appendChild(createColumn('admin', i, admin[i]));
-    row.appendChild(createColumn('common', i, comunes[i]));
-    row.appendChild(createColumn('contabilidad', i, contabilidad[i]));
+    const maxSemester = Math.max(
+      ...Object.keys(admin).map(Number),
+      ...Object.keys(comunes).map(Number),
+      ...Object.keys(contabilidad).map(Number)
+    );
 
-    container.appendChild(row);
+    for (let i = 1; i <= maxSemester; i++) {
+      const row = document.createElement('div');
+      row.classList.add('row');
+
+      row.appendChild(createColumn('admin', i, admin[i]));
+      row.appendChild(createColumn('common', i, comunes[i]));
+      row.appendChild(createColumn('contabilidad', i, contabilidad[i]));
+
+      container.appendChild(row);
+    }
+  } catch (e) {
+    const error = document.createElement('p');
+    error.classList.add('error');
+    error.textContent = 'No se pudieron cargar las materias. ' +
+      'Asegúrate de abrir el sitio desde un servidor local.';
+    container.appendChild(error);
+    console.error(e);
   }
 }
 

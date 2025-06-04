@@ -169,3 +169,10 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+
+.error {
+  color: var(--color-acento);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}

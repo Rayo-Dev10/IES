@@ -11,8 +11,9 @@ function toRoman(num) {
   return result;
 }
 
-const duplicatesMap = {}; // {"sem-name": {type, adminCard, contCard, adminCredits, contCredits}}
 const semesterTotalsEls = {}; // {semester: {header, admin, contabilidad, comunes}}
+let adminRawTotal = 0;
+let contRawTotal = 0;
 
 function createSemesterHeader(num) {
   const header = document.createElement('div');
@@ -33,11 +34,13 @@ function createColumn(program, semester, subjects = [], storeMap) {
     } else {
       card.textContent = `${sub.nombre} | ${sub.creditos} Créditos`;
     }
+    if (sub.electiva) card.classList.add('electiva');
     card.dataset.program = program === 'common' ? 'comunes' : program;
     card.dataset.nombre = sub.nombre;
     card.dataset.creditos = sub.creditos;
     card.dataset.semester = semester;
     card.dataset.homologada = 'false';
+    card.dataset.electiva = sub.electiva ? 'true' : 'false';
     if (storeMap) {
       storeMap[sub.nombre] = card;
     }
@@ -85,15 +88,19 @@ async function cargarMaterias() {
 
     const adminByName = {};
     const contByName = {};
+    adminRawTotal = 0;
+    contRawTotal = 0;
 
     for (const [sem, list] of Object.entries(adminRaw)) {
       list.forEach(sub => {
-        adminByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem)};
+        adminRawTotal += Number(sub.creditos);
+        adminByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem), electiva: sub.electiva};
       });
     }
     for (const [sem, list] of Object.entries(contRaw)) {
       list.forEach(sub => {
-        contByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem)};
+        contRawTotal += Number(sub.creditos);
+        contByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem), electiva: sub.electiva};
       });
     }
 
@@ -108,7 +115,7 @@ async function cargarMaterias() {
         const chosen = useAdmin ? a : c;
         const prog = useAdmin ? 'Administración' : 'Contabilidad';
         if (!commons[chosen.semester]) commons[chosen.semester] = [];
-        commons[chosen.semester].push({nombre: name, creditos: chosen.credits, source: prog});
+        commons[chosen.semester].push({nombre: name, creditos: chosen.credits, source: a.credits === c.credits ? null : prog, electiva: chosen.electiva});
         removeAdmin[a.semester] = removeAdmin[a.semester] || new Set();
         removeAdmin[a.semester].add(name);
         removeCont[c.semester] = removeCont[c.semester] || new Set();
@@ -158,30 +165,7 @@ async function cargarMaterias() {
         contabilidad: contaCol.totalEl
       };
 
-      // analizar duplicados para este semestre
-      for (const name in adminMap) {
-        if (contaMap[name]) {
-          const cardA = adminMap[name];
-          const cardC = contaMap[name];
-          const creditA = Number(cardA.dataset.creditos);
-          const creditC = Number(cardC.dataset.creditos);
-          const type = creditA === creditC ? 'exact' : 'name';
-          cardA.classList.add(type === 'exact' ? 'duplicate-exact' : 'duplicate-name');
-          cardC.classList.add(type === 'exact' ? 'duplicate-exact' : 'duplicate-name');
-          cardA.dataset.duplicate = type;
-          cardC.dataset.duplicate = type;
-          cardA.dataset.pairId = `${i}-${name}`;
-          cardC.dataset.pairId = `${i}-${name}`;
-          duplicatesMap[`${i}-${name}`] = {
-            type,
-            semester: i,
-            adminCard: cardA,
-            contCard: cardC,
-            adminCredits: creditA,
-            contCredits: creditC
-          };
-        }
-      }
+
 
     }
     updateTotals();
@@ -197,30 +181,20 @@ async function cargarMaterias() {
 
 function updateTotals() {
   const totals = {};
-  const global = {admin:0, contabilidad:0, comunes:0, duplicateAdjust:0};
+  const global = {admin:0, contabilidad:0, comunes:0};
   document.querySelectorAll('.subject-card').forEach(card => {
     if (card.dataset.homologada === 'true') return;
     const sem = card.dataset.semester;
-    if (!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0, duplicateAdjust:0};
+    if (!totals[sem]) totals[sem] = {admin:0, contabilidad:0, comunes:0};
     const prog = card.dataset.program;
     const cred = Number(card.dataset.creditos);
     totals[sem][prog] += cred;
     global[prog] += cred;
   });
 
-  for (const key in duplicatesMap) {
-    const info = duplicatesMap[key];
-    const aHom = info.adminCard.dataset.homologada === 'true';
-    const cHom = info.contCard.dataset.homologada === 'true';
-    if (aHom || cHom) continue;
-    const adjust = Math.min(info.adminCredits, info.contCredits);
-    totals[info.semester].duplicateAdjust += adjust;
-    global.duplicateAdjust += adjust;
-  }
-
   for (const sem in totals) {
     const t = totals[sem];
-    const totalSem = t.admin + t.contabilidad + t.comunes - t.duplicateAdjust;
+    const totalSem = t.admin + t.contabilidad + t.comunes;
     if (semesterTotalsEls[sem]) {
       semesterTotalsEls[sem].admin.textContent = `Total: ${t.admin}`;
       semesterTotalsEls[sem].contabilidad.textContent = `Total: ${t.contabilidad}`;
@@ -231,7 +205,10 @@ function updateTotals() {
 
   const adminTotal = global.admin + global.comunes;
   const contTotal = global.contabilidad + global.comunes;
-  const globalTotal = global.admin + global.contabilidad + global.comunes - global.duplicateAdjust;
+  const globalTotal = global.admin + global.contabilidad + global.comunes;
+  const ahorro = adminRawTotal + contRawTotal - globalTotal;
+  document.getElementById('admin-total-raw').textContent = adminRawTotal;
+  document.getElementById('cont-total-raw').textContent = contRawTotal;
 
   document.getElementById('admin-propios').textContent = global.admin;
   document.getElementById('admin-comunes').textContent = global.comunes;
@@ -243,6 +220,7 @@ function updateTotals() {
 
   document.getElementById('total-comunes').textContent = global.comunes;
   document.getElementById('total-global').textContent = globalTotal;
+  document.getElementById('total-ahorro').textContent = ahorro;
 }
 
 function setupFilter() {
@@ -252,13 +230,13 @@ function setupFilter() {
       const filterValue = document.querySelector('input[name="filter"]:checked').value;
       const allCards = document.querySelectorAll('.subject-card');
       allCards.forEach(card => {
-        const subjectText = card.textContent.trim().toLowerCase();
+        const isElectiva = card.dataset.electiva === 'true';
         if (filterValue === 'all') {
           card.style.display = 'block';
         } else if (filterValue === 'electivas') {
-          card.style.display = subjectText.includes('electiva') ? 'block' : 'none';
+          card.style.display = isElectiva ? 'block' : 'none';
         } else if (filterValue === 'obligatorias') {
-          card.style.display = subjectText.includes('electiva') ? 'none' : 'block';
+          card.style.display = isElectiva ? 'none' : 'block';
         }
       });
     });

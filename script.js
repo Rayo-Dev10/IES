@@ -344,19 +344,27 @@ function updateProgress() {
   document.getElementById('progress-admin').value = adminTotal;
   document.getElementById('progress-cont').value = contTotal;
   document.getElementById('admin-progress-text').textContent = adminPerc.toFixed(1);
+  document.getElementById('admin-progress-credits').textContent = adminTotal;
+  document.getElementById('admin-progress-total').textContent = adminProgramTotal;
   document.getElementById('cont-progress-text').textContent = contPerc.toFixed(1);
+  document.getElementById('cont-progress-credits').textContent = contTotal;
+  document.getElementById('cont-progress-total').textContent = contProgramTotal;
 
   document.getElementById('admin-completed-count').textContent = adminCompCount;
+  document.getElementById('admin-completed-credits').textContent = adminCompCred;
   document.getElementById('admin-completed-percent').textContent =
     adminProgramTotal ? (adminCompCred / adminProgramTotal * 100).toFixed(1) : 0;
   document.getElementById('admin-homologated-count').textContent = adminHomCount;
+  document.getElementById('admin-homologated-credits').textContent = adminHomCred;
   document.getElementById('admin-homologated-percent').textContent =
     adminProgramTotal ? (adminHomCred / adminProgramTotal * 100).toFixed(1) : 0;
 
   document.getElementById('cont-completed-count').textContent = contCompCount;
+  document.getElementById('cont-completed-credits').textContent = contCompCred;
   document.getElementById('cont-completed-percent').textContent =
     contProgramTotal ? (contCompCred / contProgramTotal * 100).toFixed(1) : 0;
   document.getElementById('cont-homologated-count').textContent = contHomCount;
+  document.getElementById('cont-homologated-credits').textContent = contHomCred;
   document.getElementById('cont-homologated-percent').textContent =
     contProgramTotal ? (contHomCred / contProgramTotal * 100).toFixed(1) : 0;
 }

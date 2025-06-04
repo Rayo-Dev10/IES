@@ -218,9 +218,9 @@ async function cargarMaterias() {
       contFiltered[sem] = rm ? list.filter(s => !rm.has(s.nombre)) : list.slice();
     }
 
-    const sumCredits = obj => Object.values(obj).flat().reduce((a, b) => a + Number(b.creditos), 0);
-    adminProgramTotal = sumCredits(adminFiltered) + sumCredits(commons);
-    contProgramTotal = sumCredits(contFiltered) + sumCredits(commons);
+    // Use the global totals from each program for progress calculations
+    adminProgramTotal = adminRawTotal;
+    contProgramTotal = contRawTotal;
     document.getElementById('progress-admin').max = adminProgramTotal;
     document.getElementById('progress-cont').max = contProgramTotal;
 

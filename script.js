@@ -67,6 +67,20 @@ function openModal(e) {
   const modal = document.getElementById('subject-modal');
   document.getElementById('modal-title').textContent = selectedCard.dataset.nombre;
   document.getElementById('modal-info').textContent = '';
+  const prereqBtn = document.getElementById('btn-prereq');
+  if (!selectedCard.dataset.prereq || selectedCard.dataset.prereq === 'null') {
+    prereqBtn.classList.add('hidden');
+  } else {
+    prereqBtn.classList.remove('hidden');
+  }
+  const homBtn = document.getElementById('btn-homologada');
+  homBtn.textContent = selectedCard.dataset.homologada === 'true'
+    ? 'Quitar homologada'
+    : 'Marcar como homologada';
+  const compBtn = document.getElementById('btn-completada');
+  compBtn.textContent = selectedCard.dataset.completed === 'true'
+    ? 'Quitar completada'
+    : 'Marcar como completada';
   modal.classList.remove('hidden');
 }
 

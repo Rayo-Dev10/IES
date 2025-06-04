@@ -18,6 +18,8 @@ let adminProgramTotal = 0;
 let contProgramTotal = 0;
 const codeMap = new Map();
 let selectedCard = null;
+const semesterColumns = {}; // {semester: {admin, comunes, contabilidad}}
+let maxSemesterGlobal = 0;
 
 function createSemesterHeader(num) {
   const header = document.createElement('div');
@@ -87,6 +89,15 @@ function openModal(e) {
   compBtn.textContent = selectedCard.dataset.completed === 'true'
     ? 'Quitar completada'
     : 'Marcar como completada';
+  const select = document.getElementById('move-semester');
+  select.innerHTML = '';
+  for (let i = 1; i <= maxSemesterGlobal; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = toRoman(i);
+    select.appendChild(opt);
+  }
+  select.value = selectedCard.dataset.semester;
   modal.classList.remove('hidden');
 }
 
@@ -149,6 +160,18 @@ function setupModal() {
     closeModal();
     updateTotals();
     updateLocks();
+  });
+  document.getElementById('btn-move-semester').addEventListener('click', () => {
+    const target = document.getElementById('move-semester').value;
+    if (!semesterColumns[target]) return;
+    if (target === selectedCard.dataset.semester) { closeModal(); return; }
+    const prog = selectedCard.dataset.program;
+    const col = semesterColumns[target][prog];
+    const total = col.querySelector('.total-card');
+    col.insertBefore(selectedCard, total);
+    selectedCard.dataset.semester = target;
+    closeModal();
+    updateTotals();
   });
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 }
@@ -229,6 +252,7 @@ async function cargarMaterias() {
       ...Object.keys(contFiltered).map(Number),
       ...Object.keys(commons).map(Number)
     );
+    maxSemesterGlobal = maxSemester;
 
     for (let i = 1; i <= maxSemester; i++) {
       const header = createSemesterHeader(i);
@@ -255,6 +279,11 @@ async function cargarMaterias() {
         admin: adminCol.totalEl,
         comunes: commonCol.totalEl,
         contabilidad: contaCol.totalEl
+      };
+      semesterColumns[i] = {
+        admin: adminCol.col,
+        comunes: commonCol.col,
+        contabilidad: contaCol.col
       };
 
 

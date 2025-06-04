@@ -1,0 +1,23 @@
+[
+  {"semestre": 1, "nombre": "Principios de Administración", "creditos": 4},
+  {"semestre": 1, "nombre": "Electiva", "creditos": 2},
+  {"semestre": 2, "nombre": "Introducción a las Ciencias Sociales", "creditos": 2},
+  {"semestre": 2, "nombre": "Economía de Empresas", "creditos": 2},
+  {"semestre": 2, "nombre": "Costos", "creditos": 3},
+  {"semestre": 2, "nombre": "Sistemas", "creditos": 3},
+  {"semestre": 2, "nombre": "Contexto Regional", "creditos": 2},
+  {"semestre": 3, "nombre": "Administración de la Producción", "creditos": 3},
+  {"semestre": 3, "nombre": "Fundamentos de Mercadeo", "creditos": 2},
+  {"semestre": 3, "nombre": "Constitución Política y Ética", "creditos": 2},
+  {"semestre": 4, "nombre": "Emprenderismo", "creditos": 3},
+  {"semestre": 4, "nombre": "Electiva", "creditos": 3},
+  {"semestre": 5, "nombre": "Dirección y Control", "creditos": 4},
+  {"semestre": 5, "nombre": "Emprendimiento", "creditos": 3},
+  {"semestre": 5, "nombre": "Investigación de Mercados", "creditos": 3},
+  {"semestre": 5, "nombre": "Psicología en las Organizaciones", "creditos": 3},
+  {"semestre": 6, "nombre": "Formulación y Evaluación de Proyectos", "creditos": 4},
+  {"semestre": 6, "nombre": "Enfoque Gerencial", "creditos": 3},
+  {"semestre": 6, "nombre": "Planeación Estratégica", "creditos": 3},
+  {"semestre": 6, "nombre": "Gestión Tributaria", "creditos": 3},
+  {"semestre": 6, "nombre": "Electiva", "creditos": 2}
+]

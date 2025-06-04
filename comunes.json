@@ -1,0 +1,28 @@
+{
+  "1": [
+    {"nombre": "Matemáticas", "creditos": 3},
+    {"nombre": "Principios de Economía", "creditos": 3},
+    {"nombre": "Principios de Contabilidad", "creditos": 4},
+    {"nombre": "Técnicas de Expresión Oral y Escrita", "creditos": 2}
+  ],
+  "2": [
+    {"nombre": "Estadística", "creditos": 2},
+    {"nombre": "Organización de Empresas", "creditos": 4}
+  ],
+  "3": [
+    {"nombre": "Matemática Financiera", "creditos": 3},
+    {"nombre": "Legislación Comercial y Laboral", "creditos": 3},
+    {"nombre": "Inglés I", "creditos": 2}
+  ],
+  "4": [
+    {"nombre": "Talento Humano", "creditos": 3},
+    {"nombre": "Inglés II", "creditos": 2}
+  ],
+  "5": [
+    {"nombre": "Análisis Financiero", "creditos": 3},
+    {"nombre": "Inglés III", "creditos": 2}
+  ],
+  "6": [
+    {"nombre": "Inglés IV", "creditos": 2}
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "1": [
+    {"nombre": "Principios de Administración", "creditos": 2},
+    {"nombre": "Constitución Política y Ética", "creditos": 2},
+    {"nombre": "Principios de Investigación", "creditos": 2}
+  ],
+  "2": [
+    {"nombre": "Costos por Órdenes de Producción", "creditos": 3},
+    {"nombre": "Contabilidad General", "creditos": 6},
+    {"nombre": "Electiva I", "creditos": 2}
+  ],
+  "3": [
+    {"nombre": "Costos por Procesos", "creditos": 3},
+    {"nombre": "Emprenderismo", "creditos": 2},
+    {"nombre": "Software y Contabilización de Soportes", "creditos": 3},
+    {"nombre": "Metodología de Investigación", "creditos": 2}
+  ],
+  "4": [
+    {"nombre": "Presupuestos Privados", "creditos": 4},
+    {"nombre": "IVA, Retefuente e ICA", "creditos": 4},
+    {"nombre": "Contabilidad Patrimonial", "creditos": 2},
+    {"nombre": "Sistemas Aplicados", "creditos": 3}
+  ],
+  "5": [
+    {"nombre": "Auditoría", "creditos": 4},
+    {"nombre": "Impuesto Renta y Complementarios", "creditos": 4},
+    {"nombre": "Ciclo Contable I", "creditos": 3},
+    {"nombre": "Electiva II", "creditos": 2}
+  ],
+  "6": [
+    {"nombre": "Contabilidad Pública", "creditos": 3},
+    {"nombre": "Evaluación Financiera de Proyectos", "creditos": 3},
+    {"nombre": "Procedimiento Tributario", "creditos": 4},
+    {"nombre": "Ciclo Contable II e Impuestos Territoriales", "creditos": 4},
+    {"nombre": "Electiva III", "creditos": 2}
+  ]
+}

@@ -122,15 +122,15 @@ body {
   border-left: 0.25rem solid var(--color-principal);
 }
 
-/* Duplicados: mismo nombre y mismo créditos = rojo; mismo nombre pero diferentes créditos = azul */
-.duplicated-red {
-  background-color: var(--color-acento);
+/* Duplicados entre los dos programas */
+.duplicate-exact {
+  background-color: #2ecc71; /* verde esmeralda */
   color: #fff;
 }
 
-.duplicated-blue {
-  background-color: var(--color-principal);
-  color: #fff;
+.duplicate-name {
+  background-color: #f1c40f; /* amarillo suave */
+  color: #000;
 }
 
 button {
@@ -162,6 +162,37 @@ button:hover {
   display: inline-block;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
+}
+
+.homologada {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.semester-header {
+  grid-column: 1 / -1;
+  text-align: center;
+  background-color: var(--color-principal);
+  color: #fff;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.semester-credits {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.semester-credits span { margin-right: 1rem; }
+
+.global-totals {
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {

@@ -28,7 +28,11 @@ function createColumn(program, semester, subjects = [], storeMap) {
   subjects.forEach(sub => {
     const card = document.createElement('div');
     card.classList.add('subject-card', 'card');
-    card.textContent = `${sub.nombre} | ${sub.creditos} Créditos`;
+    if (sub.source) {
+      card.innerHTML = `${sub.nombre} | ${sub.creditos} Créditos <sup>${sub.source}</sup>`;
+    } else {
+      card.textContent = `${sub.nombre} | ${sub.creditos} Créditos`;
+    }
     card.dataset.program = program === 'common' ? 'comunes' : program;
     card.dataset.nombre = sub.nombre;
     card.dataset.creditos = sub.creditos;
@@ -70,16 +74,61 @@ async function cargarMaterias() {
   const container = document.querySelector('.grid-container');
 
   try {
-    const [admin, comunes, contabilidad] = await Promise.all([
+    const [adminRaw, contRaw] = await Promise.all([
       fetch('administracion.json').then(r => r.json()),
-      fetch('comunes.json').then(r => r.json()),
       fetch('contaduria.json').then(r => r.json())
     ]);
 
+    const commons = {};
+    const adminFiltered = {};
+    const contFiltered = {};
+
+    const adminByName = {};
+    const contByName = {};
+
+    for (const [sem, list] of Object.entries(adminRaw)) {
+      list.forEach(sub => {
+        adminByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem)};
+      });
+    }
+    for (const [sem, list] of Object.entries(contRaw)) {
+      list.forEach(sub => {
+        contByName[sub.nombre] = {credits: sub.creditos, semester: Number(sem)};
+      });
+    }
+
+    const removeAdmin = {};
+    const removeCont = {};
+
+    for (const name in adminByName) {
+      if (contByName[name]) {
+        const a = adminByName[name];
+        const c = contByName[name];
+        const useAdmin = a.credits >= c.credits;
+        const chosen = useAdmin ? a : c;
+        const prog = useAdmin ? 'Administración' : 'Contabilidad';
+        if (!commons[chosen.semester]) commons[chosen.semester] = [];
+        commons[chosen.semester].push({nombre: name, creditos: chosen.credits, source: prog});
+        removeAdmin[a.semester] = removeAdmin[a.semester] || new Set();
+        removeAdmin[a.semester].add(name);
+        removeCont[c.semester] = removeCont[c.semester] || new Set();
+        removeCont[c.semester].add(name);
+      }
+    }
+
+    for (const [sem, list] of Object.entries(adminRaw)) {
+      const rm = removeAdmin[sem];
+      adminFiltered[sem] = rm ? list.filter(s => !rm.has(s.nombre)) : list.slice();
+    }
+    for (const [sem, list] of Object.entries(contRaw)) {
+      const rm = removeCont[sem];
+      contFiltered[sem] = rm ? list.filter(s => !rm.has(s.nombre)) : list.slice();
+    }
+
     const maxSemester = Math.max(
-      ...Object.keys(admin).map(Number),
-      ...Object.keys(comunes).map(Number),
-      ...Object.keys(contabilidad).map(Number)
+      ...Object.keys(adminFiltered).map(Number),
+      ...Object.keys(contFiltered).map(Number),
+      ...Object.keys(commons).map(Number)
     );
 
     for (let i = 1; i <= maxSemester; i++) {
@@ -92,9 +141,9 @@ async function cargarMaterias() {
       const adminMap = {};
       const contaMap = {};
 
-      const adminCol = createColumn('admin', i, admin[i] || [], adminMap);
-      const commonCol = createColumn('common', i, comunes[i] || []);
-      const contaCol = createColumn('contabilidad', i, contabilidad[i] || [], contaMap);
+      const adminCol = createColumn('admin', i, adminFiltered[i] || [], adminMap);
+      const commonCol = createColumn('common', i, commons[i] || []);
+      const contaCol = createColumn('contabilidad', i, contFiltered[i] || [], contaMap);
 
       row.appendChild(adminCol.col);
       row.appendChild(commonCol.col);

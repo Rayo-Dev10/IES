@@ -192,15 +192,13 @@ function updateTotals() {
     global[prog] += cred;
   });
 
-  for (const sem in totals) {
-    const t = totals[sem];
+  for (const sem in semesterTotalsEls) {
+    const t = totals[sem] || {admin: 0, contabilidad: 0, comunes: 0};
     const totalSem = t.admin + t.contabilidad + t.comunes;
-    if (semesterTotalsEls[sem]) {
-      semesterTotalsEls[sem].admin.textContent = `Total: ${t.admin}`;
-      semesterTotalsEls[sem].contabilidad.textContent = `Total: ${t.contabilidad}`;
-      semesterTotalsEls[sem].comunes.textContent = `Total: ${t.comunes}`;
-      semesterTotalsEls[sem].header.textContent = `Semestre ${toRoman(Number(sem))}: ${totalSem} créditos`;
-    }
+    semesterTotalsEls[sem].admin.textContent = `Total: ${t.admin}`;
+    semesterTotalsEls[sem].contabilidad.textContent = `Total: ${t.contabilidad}`;
+    semesterTotalsEls[sem].comunes.textContent = `Total: ${t.comunes}`;
+    semesterTotalsEls[sem].header.textContent = `Semestre ${toRoman(Number(sem))}: ${totalSem} créditos`;
   }
 
   const adminTotal = global.admin + global.comunes;

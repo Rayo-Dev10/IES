@@ -13,7 +13,7 @@
     {"nombre": "Costos por Órdenes de Producción", "creditos": 3, "electiva": false},
     {"nombre": "Organización de Empresas", "creditos": 4, "electiva": false},
     {"nombre": "Contabilidad General", "creditos": 6, "electiva": false},
-    {"nombre": "Electiva I", "creditos": 2, "electiva": true}
+    {"nombre": "Metodología de Investigación", "creditos": 2, "electiva": true}
   ],
   "3": [
     {"nombre": "Costos por Procesos", "creditos": 3, "electiva": false},
@@ -37,7 +37,7 @@
     {"nombre": "Auditoría", "creditos": 4, "electiva": false},
     {"nombre": "Impuesto Renta y Complementarios", "creditos": 4, "electiva": false},
     {"nombre": "Ciclo Contable I", "creditos": 3, "electiva": false},
-    {"nombre": "Electiva II", "creditos": 2, "electiva": true},
+    {"nombre": "Contexto Regional", "creditos": 2, "electiva": true},
     {"nombre": "Inglés III", "creditos": 2, "electiva": false}
   ],
   "6": [
@@ -45,7 +45,7 @@
     {"nombre": "Evaluación Financiera de Proyectos", "creditos": 3, "electiva": false},
     {"nombre": "Procedimiento Tributario", "creditos": 4, "electiva": false},
     {"nombre": "Ciclo Contable II e Impuestos Territoriales", "creditos": 4, "electiva": false},
-    {"nombre": "Electiva III", "creditos": 2, "electiva": true},
+    {"nombre": "Economía Colombiana", "creditos": 2, "electiva": true},
     {"nombre": "Inglés IV", "creditos": 2, "electiva": false}
   ]
 }

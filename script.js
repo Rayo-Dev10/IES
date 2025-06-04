@@ -21,6 +21,25 @@ let selectedCard = null;
 const semesterColumns = {}; // {semester: {admin, comunes, contabilidad}}
 let maxSemesterGlobal = 0;
 
+const UI = {};
+[
+  'subject-modal','modal-title','modal-info','btn-prereq','btn-homologada',
+  'btn-completada','move-semester','btn-move-semester','progress-admin',
+  'progress-cont','admin-total-raw','cont-total-raw','admin-propios',
+  'admin-comunes','admin-total','cont-propios','cont-comunes','cont-total',
+  'total-comunes','total-global','total-ahorro','admin-progress-text',
+  'admin-progress-credits','admin-progress-total','cont-progress-text',
+  'cont-progress-credits','cont-progress-total','admin-completed-count',
+  'admin-completed-credits','admin-completed-percent','admin-homologated-count',
+  'admin-homologated-credits','admin-homologated-percent','cont-completed-count',
+  'cont-completed-credits','cont-completed-percent','cont-homologated-count',
+  'cont-homologated-credits','cont-homologated-percent'
+].forEach(id => {
+  UI[id] = document.getElementById(id);
+});
+
+const setText = (id, val) => { UI[id].textContent = val; };
+
 function createSemesterHeader(num) {
   const header = document.createElement('div');
   header.classList.add('semester-header');
@@ -52,7 +71,6 @@ function createColumn(program, semester, subjects = [], storeMap) {
     if (storeMap) {
       storeMap[sub.nombre] = card;
     }
-    card.addEventListener('click', openModal);
     if (sub.code) {
       if (!codeMap.has(sub.code)) codeMap.set(sub.code, []);
       codeMap.get(sub.code).push(card);
@@ -70,26 +88,26 @@ function createColumn(program, semester, subjects = [], storeMap) {
   return {col, totalEl};
 }
 
-function openModal(e) {
-  selectedCard = e.currentTarget;
-  const modal = document.getElementById('subject-modal');
-  document.getElementById('modal-title').textContent = selectedCard.dataset.nombre;
-  document.getElementById('modal-info').textContent = '';
-  const prereqBtn = document.getElementById('btn-prereq');
+function openModal(card) {
+  selectedCard = card;
+  const modal = UI['subject-modal'];
+  setText('modal-title', selectedCard.dataset.nombre);
+  setText('modal-info', '');
+  const prereqBtn = UI['btn-prereq'];
   if (selectedCard.dataset.prereq === 'null') {
     prereqBtn.classList.add('hidden');
   } else {
     prereqBtn.classList.remove('hidden');
   }
-  const homBtn = document.getElementById('btn-homologada');
+  const homBtn = UI['btn-homologada'];
   homBtn.textContent = selectedCard.dataset.homologada === 'true'
     ? 'Quitar homologada'
     : 'Marcar como homologada';
-  const compBtn = document.getElementById('btn-completada');
+  const compBtn = UI['btn-completada'];
   compBtn.textContent = selectedCard.dataset.completed === 'true'
     ? 'Quitar completada'
     : 'Marcar como completada';
-  const select = document.getElementById('move-semester');
+  const select = UI['move-semester'];
   select.innerHTML = '';
   for (let i = 1; i <= maxSemesterGlobal; i++) {
     const opt = document.createElement('option');
@@ -120,13 +138,13 @@ function updateLocks() {
 }
 
 function closeModal() {
-  document.getElementById('subject-modal').classList.add('hidden');
+  UI['subject-modal'].classList.add('hidden');
 }
 
 function setupModal() {
-  const modal = document.getElementById('subject-modal');
-  const info = document.getElementById('modal-info');
-  document.getElementById('btn-prereq').addEventListener('click', () => {
+  const modal = UI['subject-modal'];
+  const info = UI['modal-info'];
+  UI['btn-prereq'].addEventListener('click', () => {
     const code = selectedCard.dataset.prereq;
     if (code === 'null') {
       info.textContent = 'Esta materia no tiene pre requisito';
@@ -137,7 +155,7 @@ function setupModal() {
       info.textContent = `Prerrequisito: ${code} (${names})`;
     }
   });
-  document.getElementById('btn-homologada').addEventListener('click', () => {
+  UI['btn-homologada'].addEventListener('click', () => {
     const val = selectedCard.dataset.homologada === 'true';
     selectedCard.dataset.homologada = val ? 'false' : 'true';
     if (!val) {
@@ -149,7 +167,7 @@ function setupModal() {
     updateTotals();
     updateLocks();
   });
-  document.getElementById('btn-completada').addEventListener('click', () => {
+  UI['btn-completada'].addEventListener('click', () => {
     const val = selectedCard.dataset.completed === 'true';
     selectedCard.dataset.completed = val ? 'false' : 'true';
     if (!val) {
@@ -161,8 +179,8 @@ function setupModal() {
     updateTotals();
     updateLocks();
   });
-  document.getElementById('btn-move-semester').addEventListener('click', () => {
-    const target = document.getElementById('move-semester').value;
+  UI['btn-move-semester'].addEventListener('click', () => {
+    const target = UI['move-semester'].value;
     if (!semesterColumns[target]) return;
     if (target === selectedCard.dataset.semester) { closeModal(); return; }
     const prog = selectedCard.dataset.program;
@@ -244,8 +262,8 @@ async function cargarMaterias() {
     // Use the global totals from each program for progress calculations
     adminProgramTotal = adminRawTotal;
     contProgramTotal = contRawTotal;
-    document.getElementById('progress-admin').max = adminProgramTotal;
-    document.getElementById('progress-cont').max = contProgramTotal;
+    UI['progress-admin'].max = adminProgramTotal;
+    UI['progress-cont'].max = contProgramTotal;
 
     const maxSemester = Math.max(
       ...Object.keys(adminFiltered).map(Number),
@@ -307,13 +325,27 @@ function updateTotals() {
     totals[sem] = { admin: 0, contabilidad: 0, comunes: 0 };
   }
   const global = {admin:0, contabilidad:0, comunes:0};
+  let adminCompCred = 0, adminHomCred = 0, adminCompCount = 0, adminHomCount = 0;
+  let contCompCred = 0, contHomCred = 0, contCompCount = 0, contHomCount = 0;
   document.querySelectorAll('.subject-card').forEach(card => {
-    if (card.dataset.homologada === 'true' || card.dataset.completed === 'true') return;
     const sem = card.dataset.semester;
     const prog = card.dataset.program;
     const cred = Number(card.dataset.creditos);
-    totals[sem][prog] += cred;
-    global[prog] += cred;
+    const isComp = card.dataset.completed === 'true';
+    const isHom = card.dataset.homologada === 'true';
+    if (!isComp && !isHom) {
+      totals[sem][prog] += cred;
+      global[prog] += cred;
+    } else {
+      if (prog === 'admin' || prog === 'comunes') {
+        if (isComp) { adminCompCred += cred; adminCompCount++; }
+        if (isHom) { adminHomCred += cred; adminHomCount++; }
+      }
+      if (prog === 'contabilidad' || prog === 'comunes') {
+        if (isComp) { contCompCred += cred; contCompCount++; }
+        if (isHom) { contHomCred += cred; contHomCount++; }
+      }
+    }
   });
 
   for (const sem in semesterTotalsEls) {
@@ -329,74 +361,56 @@ function updateTotals() {
   const contTotal = global.contabilidad + global.comunes;
   const globalTotal = global.admin + global.contabilidad + global.comunes;
   const ahorro = adminRawTotal + contRawTotal - globalTotal;
-  document.getElementById('admin-total-raw').textContent = adminRawTotal;
-  document.getElementById('cont-total-raw').textContent = contRawTotal;
+  setText('admin-total-raw', adminRawTotal);
+  setText('cont-total-raw', contRawTotal);
 
-  document.getElementById('admin-propios').textContent = global.admin;
-  document.getElementById('admin-comunes').textContent = global.comunes;
-  document.getElementById('admin-total').textContent = adminTotal;
+  setText('admin-propios', global.admin);
+  setText('admin-comunes', global.comunes);
+  setText('admin-total', adminTotal);
 
-  document.getElementById('cont-propios').textContent = global.contabilidad;
-  document.getElementById('cont-comunes').textContent = global.comunes;
-  document.getElementById('cont-total').textContent = contTotal;
+  setText('cont-propios', global.contabilidad);
+  setText('cont-comunes', global.comunes);
+  setText('cont-total', contTotal);
 
-  document.getElementById('total-comunes').textContent = global.comunes;
-  document.getElementById('total-global').textContent = globalTotal;
-  document.getElementById('total-ahorro').textContent = ahorro;
+  setText('total-comunes', global.comunes);
+  setText('total-global', globalTotal);
+  setText('total-ahorro', ahorro);
+  const progAdminTotal = adminCompCred + adminHomCred;
+  const progContTotal = contCompCred + contHomCred;
+  const adminPerc = adminProgramTotal ? (progAdminTotal / adminProgramTotal * 100) : 0;
+  const contPerc = contProgramTotal ? (progContTotal / contProgramTotal * 100) : 0;
 
-  updateProgress();
+  UI['progress-admin'].value = progAdminTotal;
+  UI['progress-cont'].value = progContTotal;
+  setText('admin-progress-text', adminPerc.toFixed(1));
+  setText('admin-progress-credits', progAdminTotal);
+  setText('admin-progress-total', adminProgramTotal);
+  setText('cont-progress-text', contPerc.toFixed(1));
+  setText('cont-progress-credits', progContTotal);
+  setText('cont-progress-total', contProgramTotal);
+
+  setText('admin-completed-count', adminCompCount);
+  setText('admin-completed-credits', adminCompCred);
+  setText('admin-completed-percent', adminProgramTotal ? (adminCompCred / adminProgramTotal * 100).toFixed(1) : 0);
+  setText('admin-homologated-count', adminHomCount);
+  setText('admin-homologated-credits', adminHomCred);
+  setText('admin-homologated-percent', adminProgramTotal ? (adminHomCred / adminProgramTotal * 100).toFixed(1) : 0);
+
+  setText('cont-completed-count', contCompCount);
+  setText('cont-completed-credits', contCompCred);
+  setText('cont-completed-percent', contProgramTotal ? (contCompCred / contProgramTotal * 100).toFixed(1) : 0);
+  setText('cont-homologated-count', contHomCount);
+  setText('cont-homologated-credits', contHomCred);
+  setText('cont-homologated-percent', contProgramTotal ? (contHomCred / contProgramTotal * 100).toFixed(1) : 0);
 }
 
-function updateProgress() {
-  let adminCompCred = 0, adminHomCred = 0, adminCompCount = 0, adminHomCount = 0;
-  let contCompCred = 0, contHomCred = 0, contCompCount = 0, contHomCount = 0;
-  document.querySelectorAll('.subject-card').forEach(card => {
-    const cred = Number(card.dataset.creditos);
-    const isComp = card.dataset.completed === 'true';
-    const isHom = card.dataset.homologada === 'true';
-    if (!isComp && !isHom) return;
-    if (card.dataset.program === 'admin' || card.dataset.program === 'comunes') {
-      if (isComp) { adminCompCred += cred; adminCompCount++; }
-      if (isHom) { adminHomCred += cred; adminHomCount++; }
-    }
-    if (card.dataset.program === 'contabilidad' || card.dataset.program === 'comunes') {
-      if (isComp) { contCompCred += cred; contCompCount++; }
-      if (isHom) { contHomCred += cred; contHomCount++; }
-    }
+function setupCardEvents() {
+  document.querySelector('.grid-container').addEventListener('click', e => {
+    const card = e.target.closest('.subject-card');
+    if (card) openModal(card);
   });
-
-  const adminTotal = adminCompCred + adminHomCred;
-  const contTotal = contCompCred + contHomCred;
-  const adminPerc = adminProgramTotal ? (adminTotal / adminProgramTotal * 100) : 0;
-  const contPerc = contProgramTotal ? (contTotal / contProgramTotal * 100) : 0;
-
-  document.getElementById('progress-admin').value = adminTotal;
-  document.getElementById('progress-cont').value = contTotal;
-  document.getElementById('admin-progress-text').textContent = adminPerc.toFixed(1);
-  document.getElementById('admin-progress-credits').textContent = adminTotal;
-  document.getElementById('admin-progress-total').textContent = adminProgramTotal;
-  document.getElementById('cont-progress-text').textContent = contPerc.toFixed(1);
-  document.getElementById('cont-progress-credits').textContent = contTotal;
-  document.getElementById('cont-progress-total').textContent = contProgramTotal;
-
-  document.getElementById('admin-completed-count').textContent = adminCompCount;
-  document.getElementById('admin-completed-credits').textContent = adminCompCred;
-  document.getElementById('admin-completed-percent').textContent =
-    adminProgramTotal ? (adminCompCred / adminProgramTotal * 100).toFixed(1) : 0;
-  document.getElementById('admin-homologated-count').textContent = adminHomCount;
-  document.getElementById('admin-homologated-credits').textContent = adminHomCred;
-  document.getElementById('admin-homologated-percent').textContent =
-    adminProgramTotal ? (adminHomCred / adminProgramTotal * 100).toFixed(1) : 0;
-
-  document.getElementById('cont-completed-count').textContent = contCompCount;
-  document.getElementById('cont-completed-credits').textContent = contCompCred;
-  document.getElementById('cont-completed-percent').textContent =
-    contProgramTotal ? (contCompCred / contProgramTotal * 100).toFixed(1) : 0;
-  document.getElementById('cont-homologated-count').textContent = contHomCount;
-  document.getElementById('cont-homologated-credits').textContent = contHomCred;
-  document.getElementById('cont-homologated-percent').textContent =
-    contProgramTotal ? (contHomCred / contProgramTotal * 100).toFixed(1) : 0;
 }
+
 
 function setupFilter() {
   const radios = document.querySelectorAll('input[name="filter"]');
@@ -421,6 +435,6 @@ function setupFilter() {
 document.addEventListener('DOMContentLoaded', async () => {
   await cargarMaterias();
   setupModal();
+  setupCardEvents();
   setupFilter();
-  updateProgress();
 });

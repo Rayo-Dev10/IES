@@ -1,111 +1,27 @@
 {
   "1": [
-    {
-      "nombre": "Principios de Administración",
-      "creditos": 4,
-      "electiva": false
-    },
-    {
-      "nombre": "Electiva",
-      "creditos": 2,
-      "electiva": true
-    }
-    {
-      "nombre": "Introducción a las Ciencias Sociales",
-      "creditos": 2,
-      "electiva": false
-    },
-    {
-      "nombre": "Economía de Empresas",
-      "creditos": 2,
-      "electiva": false
-    },
-    {
-      "nombre": "Costos",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Sistemas",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Contexto Regional",
-      "creditos": 2,
-      "electiva": false
-    }
-    {
-      "nombre": "Administración de la Producción",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Fundamentos de Mercadeo",
-      "creditos": 2,
-      "electiva": false
-    },
-    {
-      "nombre": "Constitución Política y Ética",
-      "creditos": 2,
-      "electiva": false
-    }
-    {
-      "nombre": "Emprenderismo",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Electiva",
-      "creditos": 3,
-      "electiva": true
-    }
-    {
-      "nombre": "Dirección y Control",
-      "creditos": 4,
-      "electiva": false
-    },
-    {
-      "nombre": "Emprendimiento",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Investigación de Mercados",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Psicología en las Organizaciones",
-      "creditos": 3,
-      "electiva": false
-    }
-    {
-      "nombre": "Formulación y Evaluación de Proyectos",
-      "creditos": 4,
-      "electiva": false
-    },
-    {
-      "nombre": "Enfoque Gerencial",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Planeación Estratégica",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Gestión Tributaria",
-      "creditos": 3,
-      "electiva": false
-    },
-    {
-      "nombre": "Electiva",
-      "creditos": 2,
-      "electiva": true
-    }
-}
+    {"nombre": "Matemática", "creditos": 3, "electiva": false},
+    {"nombre": "Principios de Economía", "creditos": 3, "electiva": false},
+    {"nombre": "Principios de Contabilidad", "creditos": 4, "electiva": false},
+    {"nombre": "Principios de Administración", "creditos": 4, "electiva": false},
+    {"nombre": "Técnicas de Expresión Oral y Escrita", "creditos": 2, "electiva": false},
+    {"nombre": "Electiva", "creditos": 2, "electiva": true}
+  ],
+  "2": [
+    {"nombre": "Estadística", "creditos": 2, "electiva": false},
+    {"nombre": "Introducción a las Ciencias Sociales", "creditos": 2, "electiva": false},
+    {"nombre": "Economía de Empresas", "creditos": 2, "electiva": false},
+    {"nombre": "Costos", "creditos": 3, "electiva": false},
+    {"nombre": "Organización de Empresas", "creditos": 4, "electiva": false},
+    {"nombre": "Sistemas", "creditos": 3, "electiva": false},
+    {"nombre": "Contexto Regional", "creditos": 2, "electiva": false}
+  ],
+  "3": [
+    {"nombre": "Matemática Financiera", "creditos": 3, "electiva": false},
+    {"nombre": "Legislación Comercial y Laboral", "creditos": 3, "electiva": false},
+    {"nombre": "Administración de la Producción", "creditos": 3, "electiva": false},
+    {"nombre": "Fundamentos de Mercadeo", "creditos": 3, "electiva": false},
+    {"nombre": "Inglés I", "creditos": 2, "electiva": false},
     {"nombre": "Constitución Política y Ética", "creditos": 2, "electiva": false}
   ],
   "4": [
@@ -130,6 +46,6 @@
     {"nombre": "Planeación Estratégica", "creditos": 3, "electiva": false},
     {"nombre": "Gestión Tributaria", "creditos": 3, "electiva": false},
     {"nombre": "Inglés IV", "creditos": 2, "electiva": false},
-    {"nombre": "Gestión de la Calidad", "creditos": 2, "electiva": true}
+    {"nombre": "Electiva", "creditos": 2, "electiva": true}
   ]
 }

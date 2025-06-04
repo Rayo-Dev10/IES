@@ -30,6 +30,34 @@ body {
   margin-bottom: 10px;
 }
 
+.toggle-container {
+  display: flex;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 30px;
+  overflow: hidden;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.toggle-container input[type="radio"] {
+  display: none;
+}
+
+.toggle-container label {
+  padding: 8px 12px;
+  cursor: pointer;
+  flex: 1 1 0;
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  transition: background 0.3s, color 0.3s;
+}
+
+.toggle-container input[type="radio"]:checked + label {
+  background: white;
+  color: #333;
+}
+
 .filter label {
   margin-right: 5px;
 }

@@ -11,12 +11,16 @@
     <h1 class="main-title">Asignaturas por Semestre || Doble titulación IES</h1>
     
     <div class="filter">
-      <label for="filter-select">Filtrar asignaturas:</label>
-      <select id="filter-select">
-        <option value="all" selected>Todas</option>
-        <option value="electivas">Electivas</option>
-        <option value="whitout-electivas">Sin electivas</option>
-      </select>
+      <div class="toggle-container">
+        <input type="radio" id="toggle-all" name="filter" value="all" checked>
+        <label for="toggle-all">Todas las materias</label>
+
+        <input type="radio" id="toggle-obligatorias" name="filter" value="obligatorias">
+        <label for="toggle-obligatorias">Solo Materias Obligatorias</label>
+
+        <input type="radio" id="toggle-electivas" name="filter" value="electivas">
+        <label for="toggle-electivas">Solo Electivas u Opcionales</label>
+      </div>
     </div>
   
     <div class="grid-container">

@@ -5,7 +5,7 @@
     {"nombre": "Principios de Contabilidad", "creditos": 4, "electiva": false},
     {"nombre": "Principios de Administración", "creditos": 4, "electiva": false},
     {"nombre": "Técnicas de Expresión Oral y Escrita", "creditos": 2, "electiva": false},
-    {"nombre": "Electiva", "creditos": 2, "electiva": true}
+    {"nombre": "Metodología de Investigación", "creditos": 2, "electiva": true}
   ],
   "2": [
     {"nombre": "Estadística", "creditos": 2, "electiva": false},

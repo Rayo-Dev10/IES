@@ -21,6 +21,14 @@ let selectedCard = null;
 const semesterColumns = {}; // {semester: {admin, comunes, contabilidad}}
 let maxSemesterGlobal = 0;
 
+function highlightAndScroll(code) {
+  const target = document.getElementById(code);
+  if (!target) return;
+  target.scrollIntoView({behavior: 'smooth', block: 'center'});
+  target.classList.add('highlight');
+  setTimeout(() => target.classList.remove('highlight'), 2000);
+}
+
 const UI = {};
 [
   'subject-modal','modal-title','modal-info','btn-prereq','btn-homologada',
@@ -63,9 +71,11 @@ function createColumn(program, semester, subjects = [], storeMap) {
     card.dataset.semester = semester;
     card.dataset.homologada = 'false';
     card.dataset.code = sub.code || '';
+    if (sub.code) card.id = sub.code;
     const prereqValue = sub["pre-requisite"];
-    card.dataset.prereq =
-      prereqValue === undefined || prereqValue === null ? 'null' : prereqValue;
+    const coreqValue = sub["co-requisite"];
+    card.dataset.prereq = JSON.stringify(prereqValue ?? []);
+    card.dataset.coreq = JSON.stringify(coreqValue ?? []);
     card.dataset.completed = 'false';
     card.dataset.electiva = sub.electiva ? 'true' : 'false';
     if (storeMap) {
@@ -94,7 +104,9 @@ function openModal(card) {
   setText('modal-title', selectedCard.dataset.nombre);
   setText('modal-info', '');
   const prereqBtn = UI['btn-prereq'];
-  if (selectedCard.dataset.prereq === 'null') {
+  const prereqs = JSON.parse(selectedCard.dataset.prereq || '[]');
+  const coreqs = JSON.parse(selectedCard.dataset.coreq || '[]');
+  if (prereqs.length === 0 && coreqs.length === 0) {
     prereqBtn.classList.add('hidden');
   } else {
     prereqBtn.classList.remove('hidden');
@@ -119,20 +131,23 @@ function openModal(card) {
   modal.classList.remove('hidden');
 }
 
+function isRequirementMet(code) {
+  const cards = codeMap.get(code);
+  if (!cards) return true;
+  return cards.some(c => c.dataset.homologada === 'true' || c.dataset.completed === 'true');
+}
+
 function updateLocks() {
   document.querySelectorAll('.subject-card').forEach(card => {
     const lock = card.querySelector('.lock');
-    const prereq = card.dataset.prereq;
-    if (prereq === 'null') {
+    const prereqs = JSON.parse(card.dataset.prereq || '[]');
+    const coreqs = JSON.parse(card.dataset.coreq || '[]');
+    const allReqs = prereqs.concat(coreqs);
+    if (allReqs.length === 0) {
       lock.classList.add('hidden');
       return;
     }
-    const prereqCards = codeMap.get(prereq);
-    if (!prereqCards) {
-      lock.classList.add('hidden');
-      return;
-    }
-    const satisfied = prereqCards.some(c => c.dataset.homologada === 'true' || c.dataset.completed === 'true');
+    const satisfied = allReqs.every(code => isRequirementMet(code));
     lock.classList.toggle('hidden', satisfied);
   });
 }
@@ -145,14 +160,36 @@ function setupModal() {
   const modal = UI['subject-modal'];
   const info = UI['modal-info'];
   UI['btn-prereq'].addEventListener('click', () => {
-    const code = selectedCard.dataset.prereq;
-    if (code === 'null') {
-      info.textContent = 'Esta materia no tiene pre requisito';
-    } else if (!codeMap.has(code)) {
-      info.textContent = 'pre requisito desocnocido, el código de pre requisito establecido no corresponde a ninguna materia del plan de estudios';
-    } else {
-      const names = [...new Set(codeMap.get(code).map(c => c.dataset.nombre))].join(', ');
-      info.textContent = `Prerrequisito: ${code} (${names})`;
+    const prereqs = JSON.parse(selectedCard.dataset.prereq || '[]');
+    const coreqs = JSON.parse(selectedCard.dataset.coreq || '[]');
+    if (prereqs.length === 0 && coreqs.length === 0) {
+      info.textContent = 'Esta materia no tiene requisitos';
+      return;
+    }
+    let html = '';
+    const build = (arr, label) => {
+      if (arr.length === 0) return;
+      html += `<strong>${label}</strong><ul>`;
+      arr.forEach(code => {
+        const names = codeMap.has(code)
+          ? [...new Set(codeMap.get(code).map(c => c.dataset.nombre))].join(', ')
+          : 'Desconocido';
+        const met = isRequirementMet(code);
+        const icon = met ? '✅' : '❌';
+        const cls = met ? 'req-met' : 'req-pend';
+        html += `<li class="${cls}"><a href="#" data-code="${code}" class="req-link">${code} (${names})</a> ${icon}</li>`;
+      });
+      html += '</ul>';
+    };
+    build(prereqs, 'Prerrequisitos');
+    build(coreqs, 'Correquisitos');
+    info.innerHTML = html;
+  });
+
+  info.addEventListener('click', e => {
+    if (e.target.classList.contains('req-link')) {
+      e.preventDefault();
+      highlightAndScroll(e.target.dataset.code);
     }
   });
   UI['btn-homologada'].addEventListener('click', () => {
@@ -241,6 +278,7 @@ async function cargarMaterias() {
           electiva: chosen.electiva,
           code: chosen.code,
           "pre-requisite": chosen["pre-requisite"] ?? null,
+          "co-requisite": chosen["co-requisite"] ?? null,
           source: a.creditos === c.creditos ? null : prog
         });
         removeAdmin[a.semester] = removeAdmin[a.semester] || new Set();

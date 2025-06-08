@@ -199,6 +199,18 @@ button:hover {
   display: none;
 }
 
+.highlight {
+  outline: 3px solid var(--color-acento);
+}
+
+.req-met {
+  color: green;
+}
+
+.req-pend {
+  color: gray;
+}
+
 .modal {
   position: fixed;
   top: 0;

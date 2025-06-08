@@ -1,5 +1,5 @@
 {
-  "3": [
+  "1": [
     {
       "nombre": "Matemáticas",
       "creditos": 3,
@@ -17,13 +17,77 @@
       "co-requisite": null
     },
     {
+      "nombre": "Principios de Contabilidad",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-003C4",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Principios de Administración",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-004C4",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Técnicas de Expresión Oral y Escrita",
+      "creditos": 2,
+      "electiva": false,
+      "code": "ADMI-005C2",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Metodología de Investigación",
+      "creditos": 2,
+      "electiva": true,
+      "code": "ADMI-006C2",
+      "pre-requisite": null,
+      "co-requisite": null
+    }
+  ],
+  "2": [
+    {
+      "nombre": "Estadística",
+      "creditos": 2,
+      "electiva": false,
+      "code": "ADMI-007C2",
+      "pre-requisite": ["ADMI-001C3"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Introducción a las Ciencias Sociales",
+      "creditos": 2,
+      "electiva": false,
+      "code": "ADMI-008C2",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Economía de Empresas",
+      "creditos": 2,
+      "electiva": false,
+      "code": "ADMI-009C2",
+      "pre-requisite": ["ADMI-002C3"],
+      "co-requisite": null
+    },
+    {
       "nombre": "Costos",
       "creditos": 3,
       "electiva": false,
       "code": "ADMI-010C3",
-      "pre-requisite": [
-        "ADMI-003C4"
-      ],
+      "pre-requisite": ["ADMI-003C4"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Organización de Empresas",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-011C4",
+      "pre-requisite": ["ADMI-004C4"],
       "co-requisite": null
     },
     {
@@ -34,6 +98,16 @@
       "pre-requisite": null,
       "co-requisite": null
     },
+    {
+      "nombre": "Contexto Regional",
+      "creditos": 2,
+      "electiva": false,
+      "code": "ADMI-013C2",
+      "pre-requisite": null,
+      "co-requisite": null
+    }
+  ],
+  "3": [
     {
       "nombre": "Matemática Financiera",
       "creditos": 3,
@@ -55,7 +129,7 @@
       "creditos": 3,
       "electiva": false,
       "code": "ADMI-016C3",
-      "pre-requisite": null,
+      "pre-requisite": ["ADMI-011C4"],
       "co-requisite": null
     },
     {
@@ -63,226 +137,6 @@
       "creditos": 3,
       "electiva": false,
       "code": "ADMI-017C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Emprenderismo",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-020C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Talento Humano",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-021C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "e-Business",
-      "creditos": 3,
-      "electiva": true,
-      "code": "ADMI-023C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Sistemas Aplicados",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-024C3",
-      "pre-requisite": [
-        "ADMI-012C3"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Análisis Financiero",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-026C3",
-      "pre-requisite": [
-        "ADMI-009C2",
-        "ADMI-010C3"
-      ],
-      "co-requisite": [
-        "ADMI-025C4"
-      ]
-    },
-    {
-      "nombre": "Emprendimiento",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-028C3",
-      "pre-requisite": [
-        "ADMI-020C3"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Investigación de Mercados",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-029C3",
-      "pre-requisite": [
-        "ADMI-017C3"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Psicología en las Organizaciones",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-030C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Enfoque Gerencial",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-033C3",
-      "pre-requisite": [
-        "ADMI-027C4"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Planeación Estratégica",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-034C3",
-      "pre-requisite": [
-        "ADMI-027C4"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Gestión Tributaria",
-      "creditos": 3,
-      "electiva": false,
-      "code": "ADMI-035C3",
-      "pre-requisite": [
-        "ADMI-015C3"
-      ],
-      "co-requisite": null
-    }
-  ],
-  "4": [
-    {
-      "nombre": "Principios de Contabilidad",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-003C4",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Principios de Administración",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-004C4",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Organización de Empresas",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-011C4",
-      "pre-requisite": [
-        "ADMI-004C4"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Presupuestos Privados",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-025C4",
-      "pre-requisite": [
-        "ADMI-010C3",
-        "ADMI-001C3"
-      ],
-      "co-requisite": [
-        "ADMI-026C3"
-      ]
-    },
-    {
-      "nombre": "Dirección y Control",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-027C4",
-      "pre-requisite": [
-        "ADMI-011C4"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Formulación y Evaluación de Proyectos",
-      "creditos": 4,
-      "electiva": false,
-      "code": "ADMI-032C4",
-      "pre-requisite": [
-        "ADMI-026C3"
-      ],
-      "co-requisite": null
-    }
-  ],
-  "2": [
-    {
-      "nombre": "Técnicas de Expresión Oral y Escrita",
-      "creditos": 2,
-      "electiva": false,
-      "code": "ADMI-005C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Metodología de Investigación",
-      "creditos": 2,
-      "electiva": true,
-      "code": "ADMI-006C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Estadística",
-      "creditos": 2,
-      "electiva": false,
-      "code": "ADMI-007C2",
-      "pre-requisite": [
-        "ADMI-001C3"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Introducción a las Ciencias Sociales",
-      "creditos": 2,
-      "electiva": false,
-      "code": "ADMI-008C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Economía de Empresas",
-      "creditos": 2,
-      "electiva": false,
-      "code": "ADMI-009C2",
-      "pre-requisite": [
-        "ADMI-002C3"
-      ],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Contexto Regional",
-      "creditos": 2,
-      "electiva": false,
-      "code": "ADMI-013C2",
       "pre-requisite": null,
       "co-requisite": null
     },
@@ -301,15 +155,97 @@
       "code": "ADMI-019C2",
       "pre-requisite": null,
       "co-requisite": null
+    }
+  ],
+  "4": [
+    {
+      "nombre": "Emprenderismo",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-020C3",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Talento Humano",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-021C3",
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Inglés II",
       "creditos": 2,
       "electiva": false,
       "code": "ADMI-022C2",
-      "pre-requisite": [
-        "ADMI-018C2"
-      ],
+      "pre-requisite": ["ADMI-018C2"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "e-Business",
+      "creditos": 3,
+      "electiva": true,
+      "code": "ADMI-023C3",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Sistemas Aplicados",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-024C3",
+      "pre-requisite": ["ADMI-012C3"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Presupuestos Privados",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-025C4",
+      "pre-requisite": ["ADMI-001C3", "ADMI-010C3"],
+      "co-requisite": ["ADMI-026C3"]
+    }
+  ],
+  "5": [
+    {
+      "nombre": "Análisis Financiero",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-026C3",
+      "pre-requisite": ["ADMI-009C2", "ADMI-010C3"],
+      "co-requisite": ["ADMI-025C4"]
+    },
+    {
+      "nombre": "Dirección y Control",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-027C4",
+      "pre-requisite": ["ADMI-011C4"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Emprendimiento",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-028C3",
+      "pre-requisite": ["ADMI-020C3"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Investigación de Mercados",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-029C3",
+      "pre-requisite": ["ADMI-017C3"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Psicología en las Organizaciones",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-030C3",
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
@@ -317,9 +253,41 @@
       "creditos": 2,
       "electiva": false,
       "code": "ADMI-031C2",
-      "pre-requisite": [
-        "ADMI-022C2"
-      ],
+      "pre-requisite": ["ADMI-022C2"],
+      "co-requisite": null
+    }
+  ],
+  "6": [
+    {
+      "nombre": "Formulación y Evaluación de Proyectos",
+      "creditos": 4,
+      "electiva": false,
+      "code": "ADMI-032C4",
+      "pre-requisite": ["ADMI-026C3"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Enfoque Gerencial",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-033C3",
+      "pre-requisite": ["ADMI-027C4"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Planeación Estratégica",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-034C3",
+      "pre-requisite": ["ADMI-027C4"],
+      "co-requisite": null
+    },
+    {
+      "nombre": "Gestión Tributaria",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMI-035C3",
+      "pre-requisite": ["ADMI-015C3"],
       "co-requisite": null
     },
     {
@@ -327,9 +295,7 @@
       "creditos": 2,
       "electiva": false,
       "code": "ADMI-036C2",
-      "pre-requisite": [
-        "ADMI-031C2"
-      ],
+      "pre-requisite": ["ADMI-031C2"],
       "co-requisite": null
     },
     {

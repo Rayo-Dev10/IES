@@ -5,49 +5,56 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-001C3",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Principios de Economía",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-002C3",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Principios de Administración",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-003C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Constitución Política y Ética",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-004C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Principios de Contabilidad",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-005C4",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Técnicas de Expresión Oral y Escrita",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-006C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Principios de Investigación",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-007C2",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-012C2"],
+      "co-requisite": null
     }
   ],
   "2": [
@@ -56,35 +63,40 @@
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-008C2",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-001C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Costos por Órdenes de Producción",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-009C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-011C6"],
+      "co-requisite": null
     },
     {
       "nombre": "Organización de Empresas",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-010C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-003C2"],
+      "co-requisite": null
     },
     {
       "nombre": "Contabilidad General",
       "creditos": 6,
       "electiva": false,
       "code": "CONTA-011C6",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-005C4"],
+      "co-requisite": null
     },
     {
       "nombre": "Metodología de Investigación",
       "creditos": 2,
       "electiva": true,
       "code": "CONTA-012C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     }
   ],
   "3": [
@@ -93,49 +105,56 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-013C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-009C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Matemática Financiera",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-014C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-001C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Legislación Comercial y Laboral",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-015C3",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Emprenderismo",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-016C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Software y Contabilización de Soportes",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-017C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-024C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Inglés I",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-018C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Metodología de Investigación",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-019C2",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-006C2"],
+      "co-requisite": null
     }
   ],
   "4": [
@@ -144,42 +163,48 @@
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-020C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-014C3", "CONTA-023C2"],
+      "co-requisite": null
     },
     {
       "nombre": "IVA, Retefuente e ICA",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-021C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-011C6"],
+      "co-requisite": ["CONTA-023C2"]
     },
     {
       "nombre": "Talento Humano",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-022C3",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Contabilidad Patrimonial",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-023C2",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-011C6"],
+      "co-requisite": null
     },
     {
       "nombre": "Sistemas Aplicados",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-024C3",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Inglés II",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-025C2",
-      "pre-requisite": "CONTA-018C2"
+      "pre-requisite": ["CONTA-018C2"],
+      "co-requisite": null
     }
   ],
   "5": [
@@ -188,42 +213,48 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-026C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-014C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Auditoría",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-027C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-023C2"],
+      "co-requisite": ["CONTA-029C3"]
     },
     {
       "nombre": "Impuesto Renta y Complementarios",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-028C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-021C4", "CONTA-023C2"],
+      "co-requisite": null
     },
     {
       "nombre": "Ciclo Contable I",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-029C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-023C2"],
+      "co-requisite": null
     },
     {
       "nombre": "Contexto Regional",
       "creditos": 2,
       "electiva": true,
       "code": "CONTA-030C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Inglés III",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-031C2",
-      "pre-requisite": "CONTA-025C2"
+      "pre-requisite": ["CONTA-025C2"],
+      "co-requisite": null
     }
   ],
   "6": [
@@ -232,42 +263,48 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-032C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-023C2"],
+      "co-requisite": null
     },
     {
       "nombre": "Evaluación Financiera de Proyectos",
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-033C3",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-026C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Procedimiento Tributario",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-034C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-015C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Ciclo Contable II e Impuestos Territoriales",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-035C4",
-      "pre-requisite": null
+      "pre-requisite": ["CONTA-028C4", "CONTA-029C3"],
+      "co-requisite": null
     },
     {
       "nombre": "Economía Colombiana",
       "creditos": 2,
       "electiva": true,
       "code": "CONTA-036C2",
-      "pre-requisite": null
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Inglés IV",
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-037C2",
-      "pre-requisite": "CONTA-031C2"
+      "pre-requisite": ["CONTA-031C2"],
+      "co-requisite": null
     }
   ]
 }

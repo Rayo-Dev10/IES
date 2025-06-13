@@ -71,7 +71,7 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-009C3",
-      "pre-requisite": ["CONTA-011C6"],
+      "pre-requisite": ["CONTA-005C4"],
       "co-requisite": null
     },
     {
@@ -171,8 +171,8 @@
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-021C4",
-      "pre-requisite": ["CONTA-011C6"],
-      "co-requisite": ["CONTA-023C2"]
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Talento Humano",
@@ -187,7 +187,7 @@
       "creditos": 2,
       "electiva": false,
       "code": "CONTA-023C2",
-      "pre-requisite": ["CONTA-011C6"],
+      "pre-requisite": ["CONTA-017C3"],
       "co-requisite": null
     },
     {
@@ -221,15 +221,15 @@
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-027C4",
-      "pre-requisite": ["CONTA-023C2"],
-      "co-requisite": ["CONTA-029C3"]
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Impuesto Renta y Complementarios",
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-028C4",
-      "pre-requisite": ["CONTA-021C4", "CONTA-023C2"],
+      "pre-requisite": ["CONTA-021C4"],
       "co-requisite": null
     },
     {
@@ -263,7 +263,7 @@
       "creditos": 3,
       "electiva": false,
       "code": "CONTA-032C3",
-      "pre-requisite": ["CONTA-023C2"],
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
@@ -287,7 +287,7 @@
       "creditos": 4,
       "electiva": false,
       "code": "CONTA-035C4",
-      "pre-requisite": ["CONTA-028C4", "CONTA-029C3"],
+      "pre-requisite": ["CONTA-029C3"],
       "co-requisite": null
     },
     {

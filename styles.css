@@ -4,6 +4,8 @@
   --color-acento: #b54117;       /* Rojo terracota */
   --color-fondo-claro: #e9f1f8;  /* Azul claro pálido */
   --color-texto: #142c47;        /* Azul oscuro para texto */
+  --grad-principal: linear-gradient(45deg, var(--color-principal), var(--color-secundario));
+  --grad-secundario: linear-gradient(45deg, var(--color-secundario), var(--color-acento));
 }
 
 * {
@@ -14,11 +16,13 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--color-fondo-claro);
+  background: linear-gradient(to bottom right, var(--color-fondo-claro), #fff);
   color: var(--color-texto);
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  scroll-behavior: smooth;
+  transition: background 0.5s ease;
 }
 
 .container {
@@ -55,7 +59,7 @@ body {
   cursor: pointer;
   flex: 1 1 0;
   text-align: center;
-  background: var(--color-secundario);
+  background: var(--grad-secundario);
   color: #fff;
   font-weight: 600;
   white-space: nowrap;
@@ -69,12 +73,12 @@ body {
 }
 
 .toggle-container label:hover {
-  background-color: var(--color-acento);
+  background: var(--grad-secundario);
   transform: scale(1.05);
 }
 
 .toggle-container input[type="radio"]:checked + label {
-  background-color: var(--color-principal);
+  background: var(--grad-principal);
   color: #fff;
 }
 
@@ -92,7 +96,7 @@ body {
 .grid-header {
   text-align: center;
   font-size: 1.8rem;
-  background-color: var(--color-principal);
+  background: var(--grad-principal);
   color: #fff;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -103,7 +107,7 @@ body {
   grid-column: 1 / -1;
   text-align: center;
   font-size: 2rem;
-  background-color: var(--color-secundario);
+  background: var(--grad-secundario);
   color: #fff;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -138,6 +142,13 @@ body {
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border-left: 0.25rem solid var(--color-principal);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subject-card:hover,
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 
@@ -151,7 +162,7 @@ body {
 }
 
 button {
-  background-color: var(--color-secundario);
+  background: var(--grad-secundario);
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -162,7 +173,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--color-acento);
+  background: var(--grad-secundario);
   transform: scale(1.05);
 }
 
@@ -223,7 +234,7 @@ button:hover {
 .semester-header {
   grid-column: 1 / -1;
   text-align: center;
-  background-color: var(--color-principal);
+  background: var(--grad-principal);
   color: #fff;
   padding: 0.5rem;
   margin-top: 1rem;
@@ -234,7 +245,7 @@ button:hover {
 
 .total-card {
   margin-top: 0.5rem;
-  background-color: var(--color-principal);
+  background: var(--grad-principal);
   color: #fff;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
@@ -263,7 +274,7 @@ button:hover {
 }
 
 .dashboard-card h3 {
-  background-color: var(--color-principal);
+  background: var(--grad-principal);
   color: #fff;
   padding: 0.5rem;
   margin: 0;
@@ -299,6 +310,18 @@ progress {
   width: 100%;
   height: 1rem;
   margin-bottom: 0.5rem;
+  appearance: none;
+  background: #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+  background: var(--grad-principal);
+}
+
+progress::-moz-progress-bar {
+  background: var(--grad-principal);
 }
 
 .progress-content h4 {

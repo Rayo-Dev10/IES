@@ -1,6 +1,8 @@
 # IES
 Ayuda comparativa para doble titulación en la IES CINOC
 
+El proyecto incluye estilos modernizados con transiciones suaves y degradados para una experiencia visual más agradable.
+
 ## Visualización local
 
 El contenido de las materias se carga desde archivos JSON mediante `fetch`. Por

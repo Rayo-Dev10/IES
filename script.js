@@ -47,8 +47,8 @@ function canonicalKey(name) {
    Configuración de archivos
    =========================== */
 
-const ADMIN_FILE = 'malla_empresas_struct_with_credits.json';
-const CONT_FILE  = 'malla_contabilidad_struct.json';
+const ADMIN_FILE = 'administracion.json';
+const CONT_FILE  = 'contaduria.json';
 
 /* ===========================
    Estado global
@@ -299,10 +299,21 @@ function updateLocks() {
 async function cargarMaterias() {
   const container = document.querySelector('.grid-container');
   try {
-    const [adminRaw, contRaw] = await Promise.all([
-      fetch(ADMIN_FILE).then(r => r.json()),
-      fetch(CONT_FILE).then(r => r.json())
-    ]);
+    let adminRaw, contRaw;
+    try {
+      const rA = await fetch(ADMIN_FILE);
+      if (!rA.ok) throw new Error(`HTTP ${rA.status} ${rA.statusText} (${ADMIN_FILE})`);
+      adminRaw = await rA.json();
+    } catch (e) {
+      throw new Error(`No se pudo leer ${ADMIN_FILE}: ${e.message}`);
+    }
+    try {
+      const rC = await fetch(CONT_FILE);
+      if (!rC.ok) throw new Error(`HTTP ${rC.status} ${rC.statusText} (${CONT_FILE})`);
+      contRaw = await rC.json();
+    } catch (e) {
+      throw new Error(`No se pudo leer ${CONT_FILE}: ${e.message}`);
+    }
 
     const commons = {};
     const adminFiltered = {};
@@ -435,8 +446,7 @@ async function cargarMaterias() {
   } catch (e) {
     const error = document.createElement('p');
     error.classList.add('error');
-    error.textContent = 'No se pudieron cargar las materias. ' +
-      'Asegúrate de abrir el sitio desde un servidor local y que los JSON existan.';
+    error.textContent = 'No se pudieron cargar las materias. Revisa que ' + ADMIN_FILE + ' y ' + CONT_FILE + ' existan y que el sitio esté servido por http:// (no file://). Mira la consola para más detalles.';
     const container = document.querySelector('.grid-container');
     if (container) container.appendChild(error);
     console.error(e);

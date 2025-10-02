@@ -1,158 +1,108 @@
 {
   "1": [
     {
+      "nombre": "Electiva Metodología de la Investigación",
+      "creditos": 6,
+      "electiva": true,
+      "code": "ADMON-001C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
       "nombre": "Matemáticas",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-001C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Principios de Economía",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-002C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Principios de Contabilidad",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-003C4",
+      "code": "ADMON-002C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Principios de Administración",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-004C4",
+      "code": "ADMON-003C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Principios de Contabilidad",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-004C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Principios de economía",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-005C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Técnicas de Expresión Oral y Escrita",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-005C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Metodología de Investigación",
-      "creditos": 0,
-      "electiva": true,
-      "code": "ADMI-006C2",
+      "code": "ADMON-006C6",
       "pre-requisite": null,
       "co-requisite": null
     }
   ],
   "2": [
     {
-      "nombre": "Estadística",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-007C2",
-      "pre-requisite": ["ADMI-001C3"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Introducción a las Ciencias Sociales",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-008C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Economía de Empresas",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-009C2",
-      "pre-requisite": ["ADMI-002C3"],
-      "co-requisite": null
-    },
-    {
       "nombre": "Costos",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-010C3",
-      "pre-requisite": ["ADMI-003C4"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Organización de Empresas",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-011C4",
-      "pre-requisite": ["ADMI-004C4"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Sistemas",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-012C3",
+      "code": "ADMON-001C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Contexto Regional",
-      "creditos": 0,
+      "nombre": "Economía de empresas",
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-013C2",
-      "pre-requisite": null,
-      "co-requisite": null
-    }
-  ],
-  "3": [
-    {
-      "nombre": "Matemática Financiera",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-014C3",
-      "pre-requisite": ["ADMI-001C3"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Legislación Comercial y Laboral",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-015C3",
+      "code": "ADMON-002C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Administración de la Producción",
-      "creditos": 0,
+      "nombre": "Estadística",
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-016C3",
-      "pre-requisite": ["ADMI-011C4"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Fundamentos de Mercadeo",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-017C3",
+      "code": "ADMON-003C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Inglés I",
-      "creditos": 0,
+      "nombre": "Introducción a las ciencias Sociales",
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-018C2",
+      "code": "ADMON-004C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Constitución Política y Ética",
-      "creditos": 0,
+      "nombre": "Jorge Hugo Ciro Toro",
+      "creditos": 3,
       "electiva": false,
-      "code": "ADMI-019C2",
+      "code": "ADMON-005C3",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Organización de empresas",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-006C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "sistemas",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-007C6",
       "pre-requisite": null,
       "co-requisite": null
     }
@@ -160,149 +110,197 @@
   "4": [
     {
       "nombre": "Emprenderismo",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-020C3",
-      "pre-requisite": null,
-      "co-requisite": null
-    },
-    {
-      "nombre": "Talento Humano",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-021C3",
+      "code": "ADMON-001C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Inglés II",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-022C2",
-      "pre-requisite": ["ADMI-018C2"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "e-Business",
-      "creditos": 0,
-      "electiva": true,
-      "code": "ADMI-023C3",
+      "code": "ADMON-002C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Sistemas Aplicados",
-      "creditos": 0,
+      "nombre": "Natalia Andrea Gallo Bedoya",
+      "creditos": 3,
       "electiva": false,
-      "code": "ADMI-024C3",
-      "pre-requisite": ["ADMI-012C3"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Presupuestos Privados",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-025C4",
+      "code": "ADMON-003C3",
       "pre-requisite": null,
-      "co-requisite": ["ADMI-026C3"]
+      "co-requisite": null
     }
   ],
   "5": [
     {
-      "nombre": "Análisis Financiero",
-      "creditos": 0,
+      "nombre": "Buenas Practicas Agrícolas - BPA",
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-026C3",
-      "pre-requisite": ["ADMI-009C2", "ADMI-010C3"],
-      "co-requisite": ["ADMI-025C4"]
+      "code": "ADMON-001C6",
+      "pre-requisite": null,
+      "co-requisite": null
     },
     {
       "nombre": "Dirección y Control",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-027C4",
-      "pre-requisite": ["ADMI-011C4"],
+      "code": "ADMON-002C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Emprenderismo",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-003C6",
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Emprendimiento",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-028C3",
-      "pre-requisite": ["ADMI-020C3"],
+      "code": "ADMON-004C6",
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Investigación de Mercados",
-      "creditos": 0,
+      "nombre": "Gestión de la Innovación",
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-029C3",
-      "pre-requisite": ["ADMI-017C3"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Psicología en las Organizaciones",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-030C3",
+      "code": "ADMON-005C6",
       "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Inglés III",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-031C2",
-      "pre-requisite": ["ADMI-022C2"],
+      "code": "ADMON-006C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Investigación de Mercados",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-007C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Luis Felipe Gómez/ Alejandro Álvarez",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-008C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Pastos y Forrajes",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-009C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Psicología de las Organizaciones",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-010C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Sistemas de producción Agropecuaria II",
+      "creditos": 3,
+      "electiva": false,
+      "code": "ADMON-011C3",
+      "pre-requisite": null,
       "co-requisite": null
     }
   ],
   "6": [
     {
+      "nombre": "Buenas practicas pecuarias - BPP",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-001C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Electiva",
+      "creditos": 6,
+      "electiva": true,
+      "code": "ADMON-002C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Electiva Manipulación y Transforamción de Alimentos",
+      "creditos": 6,
+      "electiva": true,
+      "code": "ADMON-003C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Formulación de proyectos",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-004C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
       "nombre": "Formulación y Evaluación de Proyectos",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-032C4",
-      "pre-requisite": ["ADMI-026C3"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Enfoque Gerencial",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-033C3",
-      "pre-requisite": ["ADMI-027C4"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Planeación Estratégica",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-034C3",
-      "pre-requisite": ["ADMI-027C4"],
-      "co-requisite": null
-    },
-    {
-      "nombre": "Gestión Tributaria",
-      "creditos": 0,
-      "electiva": false,
-      "code": "ADMI-035C3",
-      "pre-requisite": ["ADMI-015C3"],
+      "code": "ADMON-005C6",
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
       "nombre": "Inglés IV",
-      "creditos": 0,
+      "creditos": 6,
       "electiva": false,
-      "code": "ADMI-036C2",
-      "pre-requisite": ["ADMI-031C2"],
+      "code": "ADMON-006C6",
+      "pre-requisite": null,
       "co-requisite": null
     },
     {
-      "nombre": "Economía Colombiana",
-      "creditos": 0,
-      "electiva": true,
-      "code": "ADMI-037C2",
+      "nombre": "Logística",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-007C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Luis Felipe Gómez Salazar",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-008C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "Planeación estratégica",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-009C6",
+      "pre-requisite": null,
+      "co-requisite": null
+    },
+    {
+      "nombre": "biocomercio",
+      "creditos": 6,
+      "electiva": false,
+      "code": "ADMON-010C6",
       "pre-requisite": null,
       "co-requisite": null
     }

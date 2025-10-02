@@ -1,4 +1,3 @@
-
 'use strict';
 
 /* ===========================
@@ -47,8 +46,9 @@ function canonicalKey(name) {
    Configuración de archivos
    =========================== */
 
-const ADMIN_FILE = 'administracion.json';
-const CONT_FILE  = 'contaduria.json';
+// Intentar primero *_fmt.json (con pre-requisites), luego fallback a los simples
+const ADMIN_CANDIDATES = ['administracion_fmt.json', 'administracion.json'];
+const CONT_CANDIDATES  = ['contaduria_fmt.json', 'contaduria.json'];
 
 /* ===========================
    Estado global
@@ -82,6 +82,25 @@ const UI = {};
 });
 
 const setText = (id, val) => { if (UI[id]) UI[id].textContent = String(val); };
+
+/* ===========================
+   Helpers de fetch
+   =========================== */
+
+async function fetchFirst(candidates) {
+  const errors = [];
+  for (const path of candidates) {
+    try {
+      const r = await fetch(path, { cache: 'no-store' });
+      if (!r.ok) { errors.push(`${path}: HTTP ${r.status}`); continue; }
+      const json = await r.json();
+      return { json, path };
+    } catch (e) {
+      errors.push(`${path}: ${e.message}`);
+    }
+  }
+  throw new Error('No se pudo leer ninguno: ' + errors.join(' | '));
+}
 
 /* ===========================
    Creación de UI (semestres/columnas)
@@ -122,10 +141,10 @@ function createColumn(program, semester, subjects = [], storeMap) {
     card.dataset.code = codes[0] || '';
     card.dataset.codes = JSON.stringify(codes);
 
-    // Prerrequisitos: JSON array (códigos). Si viene null/string, normalizar a []
-    const pre = sub['pre-requisite'];
-    const preArr = Array.isArray(pre) ? pre : (pre ? [pre] : []);
-    card.dataset.prereq = JSON.stringify(preArr);
+    // === PRE-REQUISITOS (solo arreglo) ===
+    // new JSON: sub["pre-requisites"] es un arreglo de codes
+    const preList = Array.isArray(sub['pre-requisites']) ? sub['pre-requisites'] : [];
+    card.dataset.prereq = JSON.stringify(preList);
 
     if (storeMap) storeMap[sub.nombre] = card;
 
@@ -284,7 +303,7 @@ function updateLocks() {
     // Considera satisfecho si TODOS los prerequisitos están cumplidos
     const satisfied = prereqList.every(code => {
       const targets = codeMap.get(code);
-      if (!targets || !targets.length) return true; // tolerante: si no se encuentra el código, no bloquea
+      if (!targets || !targets.length) return true; // tolerante: si no hay tarjeta con ese code, no bloquea
       return targets.some(c => c.dataset.homologada === 'true' || c.dataset.completed === 'true');
     });
 
@@ -296,24 +315,19 @@ function updateLocks() {
    Carga y fusión de mallas
    =========================== */
 
+function unionUnique(arrA = [], arrB = []) {
+  const set = new Set([...(arrA || []), ...(arrB || [])].filter(Boolean));
+  return [...set];
+}
+
 async function cargarMaterias() {
   const container = document.querySelector('.grid-container');
   try {
-    let adminRaw, contRaw;
-    try {
-      const rA = await fetch(ADMIN_FILE);
-      if (!rA.ok) throw new Error(`HTTP ${rA.status} ${rA.statusText} (${ADMIN_FILE})`);
-      adminRaw = await rA.json();
-    } catch (e) {
-      throw new Error(`No se pudo leer ${ADMIN_FILE}: ${e.message}`);
-    }
-    try {
-      const rC = await fetch(CONT_FILE);
-      if (!rC.ok) throw new Error(`HTTP ${rC.status} ${rC.statusText} (${CONT_FILE})`);
-      contRaw = await rC.json();
-    } catch (e) {
-      throw new Error(`No se pudo leer ${CONT_FILE}: ${e.message}`);
-    }
+    // Cargar con fallback
+    const { json: adminRaw, path: adminPath } = await fetchFirst(ADMIN_CANDIDATES);
+    const { json: contRaw,  path: contPath }  = await fetchFirst(CONT_CANDIDATES);
+
+    console.log('Usando archivos:', adminPath, contPath);
 
     const commons = {};
     const adminFiltered = {};
@@ -324,7 +338,7 @@ async function cargarMaterias() {
     adminRawTotal = 0;
     contRawTotal = 0;
 
-    // Acumular totales y agrupar por key canónica
+    // Acumular totales y agrupar por key canónica (para dedup)
     for (const [sem, list] of Object.entries(adminRaw)) {
       list.forEach(sub => {
         adminRawTotal += Number(sub.creditos || 0);
@@ -349,11 +363,10 @@ async function cargarMaterias() {
     const removeAdmin = {};
     const removeCont = {};
 
+    // Detectar comunes por coincidencia de nombre canónico
     for (const key in adminByKey) {
       if (!contByKey[key]) continue;
-
-      // No marcar Electivas como comunes automáticamente
-      if (/^electiva\b/.test(key)) continue;
+      if (/^electiva\b/.test(key)) continue; // no marcar Electivas como comunes
 
       const a = adminByKey[key];
       const c = contByKey[key];
@@ -364,8 +377,12 @@ async function cargarMaterias() {
         ? (a.semester <= c.semester ? a : c)
         : (aCred > cCred ? a : c);
 
-      // Tarjeta común con códigos equivalentes (para prerrequisitos cruzados)
+      // Tarjeta común con códigos equivalentes (para locks) y unión de prerrequisitos
       const allCodes = [a.code, c.code].filter(Boolean);
+      const preA = Array.isArray(a['pre-requisites']) ? a['pre-requisites'] : [];
+      const preC = Array.isArray(c['pre-requisites']) ? c['pre-requisites'] : [];
+      const preUnion = unionUnique(preA, preC);
+
       const chosenProg = (chosen === a) ? 'Administración' : 'Contabilidad';
       if (!commons[chosen.semester]) commons[chosen.semester] = [];
       commons[chosen.semester].push({
@@ -374,7 +391,7 @@ async function cargarMaterias() {
         electiva: !!chosen.electiva,
         code: chosen.code,
         codes: allCodes,
-        "pre-requisite": chosen["pre-requisite"] ?? null,
+        'pre-requisites': preUnion,
         source: (aCred === cCred) ? null : chosenProg
       });
 
@@ -408,6 +425,7 @@ async function cargarMaterias() {
     );
     maxSemesterGlobal = maxSemester;
 
+    // Pintar mallas
     for (let i = 1; i <= maxSemester; i++) {
       const header = createSemesterHeader(i);
       container.appendChild(header);
@@ -446,7 +464,7 @@ async function cargarMaterias() {
   } catch (e) {
     const error = document.createElement('p');
     error.classList.add('error');
-    error.textContent = 'No se pudieron cargar las materias. Revisa que ' + ADMIN_FILE + ' y ' + CONT_FILE + ' existan y que el sitio esté servido por http:// (no file://). Mira la consola para más detalles.';
+    error.textContent = 'No se pudieron cargar las materias. Revisa que existan administracion_fmt.json / contaduria_fmt.json (o administracion.json / contaduria.json) y que el sitio esté servido por http(s):// (no file://). Mira consola para más detalles.';
     const container = document.querySelector('.grid-container');
     if (container) container.appendChild(error);
     console.error(e);
